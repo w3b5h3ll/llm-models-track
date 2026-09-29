@@ -1,0 +1,26 @@
+{
+  "inter-variable.woff2": {
+    "sha256": "693b77d4f32ee9b8bfc995589b5fad5e99adf2832738661f5402f9978429a8e3",
+    "bytes": 352240
+  },
+  "jetbrains-mono-regular.woff2": {
+    "sha256": "f1a7a03672cdd494ce0d5543fac6e4360fe22403c6de297fdc2e55a815f7baff",
+    "bytes": 92380
+  },
+  "source-han-sc-bold-full.woff2": {
+    "sha256": "16f711a6879a6934c3323d901bc0ee01fb4728cf4210459c8f97128d7b606be1",
+    "bytes": 13938976
+  },
+  "source-han-sc-bold-ui.woff2": {
+    "sha256": "45a94a15ff16702011154040bbdd91fe73fff95b4ede3d23c58f86db047ec0f2",
+    "bytes": 136936
+  },
+  "source-han-sc-regular-full.woff2": {
+    "sha256": "377c58a6a7e756d662aeeb9e2758207ccbfa8c8ed06a8bda3b4096d5c4173758",
+    "bytes": 13372536
+  },
+  "source-han-sc-regular-ui.woff2": {
+    "sha256": "c064751219649edd8e601f56db33c0c8d8e5da62fe14a3b8e80dcc0ef1c70887",
+    "bytes": 134668
+  }
+}

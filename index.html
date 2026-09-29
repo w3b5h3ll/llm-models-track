@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fa">
+  <meta name="description" content="你关注的 AI 模型参数，一处查看上下文与多模态能力。">
+  <title>Model Watch · 自选模型观察站</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23254fdf'/%3E%3Cpath d='M8 25V15l6 10 6-10 6 10 6-10v10' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="preload" href="assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/fonts.css">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="./"><span class="mark" aria-hidden="true">m<span>↗</span></span>Model Watch<span class="brand-note">自选模型观察站</span></a><a class="data-link" href="data/models.json">原始数据 <span aria-hidden="true">↗</span></a></header>
+  <main>
+    <section class="intro">
+      <div><h1>模型参数</h1></div>
+      <div class="update"><span class="update-label">数据最后变更</span><time id="updated">正在读取…</time><span class="update-note" id="checked-at">最近检查：读取中…</span></div>
+    </section>
+    <section class="stats" aria-label="关注列表概览">
+      <div class="stat"><span>关注模型</span><strong id="total">—</strong><small>来自你的关注名单</small></div>
+      <div class="stat"><span>模型厂商</span><strong id="providers-count">—</strong><small>跨厂商统一查看</small></div>
+      <div class="stat"><span>多模态输入</span><strong id="multimodal-count">—</strong><small>支持图像、音频或视频</small></div>
+      <div class="stat"><span>最大上下文</span><strong id="max-context">—</strong><small>tokens · 当前关注列表</small></div>
+    </section>
+    <section class="catalog" aria-labelledby="catalog-title">
+      <div class="catalog-heading"><div><h2 id="catalog-title">模型目录 <span id="result-count" class="count">—</span></h2><p>只显示关注名单中的模型与系列。</p></div><span id="source-badge" class="source-badge">目录快照</span></div>
+      <div class="controls">
+        <label class="search"><svg class="search-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="m12.5 12.5 4 4" stroke="currentColor" stroke-width="1.4"/></svg><input id="search" type="search" placeholder="搜索模型名称或 ID…" aria-label="搜索模型名称或 ID"></label>
+        <label class="select-wrap"><span>规格</span><select id="basis" aria-label="规格来源"><option value="official">优先官方</option><option value="platform">聚合平台</option></select></label>
+        <label class="select-wrap"><span>厂商</span><select id="provider" aria-label="筛选厂商"><option value="">全部厂商</option></select></label>
+        <label class="select-wrap"><span>排序</span><select id="sort" aria-label="排序方式"><option value="name">名称 A → Z</option><option value="context-desc">上下文：从大到小</option><option value="context-asc">上下文：从小到大</option><option value="output-desc">最大输出：从大到小</option></select></label>
+      </div>
+      <div class="filterbar"><span class="filter-label">能力筛选</span><div class="chips" role="group" aria-label="能力筛选，可多选，条件同时满足"><button type="button" data-filter="image" aria-pressed="false">图像输入</button><button type="button" data-filter="audio" aria-pressed="false">音频输入</button><button type="button" data-filter="video" aria-pressed="false">视频输入</button><button type="button" data-filter="tool_call" aria-pressed="false">工具调用</button><button type="button" data-filter="reasoning" aria-pressed="false">推理</button></div><button id="reset" class="reset" type="button">重置筛选</button></div>
+      <p id="status" class="status" role="status" aria-live="polite">正在读取模型数据…</p>
+      <div id="error" class="error" hidden><h3>暂时无法读取数据</h3><p id="error-message"></p><button id="retry" type="button">重新加载</button></div>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="模型参数表，窄屏可左右滚动">
+        <table><caption class="sr-only">关注模型参数对比；点击模型名称查看完整数值和来源</caption><thead><tr><th scope="col">模型 / 厂商</th><th scope="col">上下文 <span>tokens</span></th><th scope="col">最大输入 <span>tokens</span></th><th scope="col">最大输出 <span>tokens</span></th><th scope="col">输入模态</th><th scope="col">输出模态</th><th scope="col">工具调用</th><th scope="col">推理</th></tr></thead><tbody id="models"></tbody></table>
+      </div>
+      <div id="empty" class="empty" hidden><span aria-hidden="true">⌕</span><h3>没有匹配的模型</h3><p>试试其他关键词，或减少筛选条件。</p><button id="empty-reset" type="button">清除筛选</button></div>
+      <div class="table-footer"><span>点击模型名称，在侧栏核对规格与来源</span><span>K = 1,000 · M = 1,000,000 tokens</span></div>
+    </section>
+    <aside class="notes"><span class="info-icon" aria-hidden="true">i</span><div><strong>这些数字代表什么？</strong><p id="scope-note">参数来自目录快照，具体服务端点的限制可能不同。未知表示数据源未提供，不等于不支持。</p><p>上下文是输入与生成内容共享的总窗口；最大输入是单次请求的输入上限。官方页未列出的字段不使用平台值补齐。按模式限定的输入上限分别列出。</p><p>“数据最后变更”是观察到参数变化的时间，并非最近一次检查时间。多项能力筛选需同时满足。</p></div></aside>
+    <footer><span>Model Watch <span class="footer-dot">·</span> 专注你的模型清单</span><div><a href="data/models.md">Markdown 表格 ↗</a><a href="watchlist.json">关注规则 ↗</a></div></footer>
+  </main>
+  <dialog id="detail" aria-labelledby="detail-title"><div class="dialog-top"><span class="eyebrow">MODEL DETAILS</span><button id="close-detail" class="close" aria-label="关闭详情">×</button></div><h2 id="detail-title"></h2><p id="detail-id" class="model-id"></p><dl id="detail-fields"></dl><div id="detail-comparison"></div><details id="evidence-panel"><summary>查看官方原文证据</summary><div id="detail-evidence"></div></details><p class="detail-note">官方使用 K / M 简写时保留原文，十进制展开值仅用于排序。未列出的字段不推算。扩展上下文可能需要额外部署配置。</p><a id="detail-source" target="_blank" rel="noopener noreferrer">查看数据来源 ↗</a></dialog>
+  <noscript><p class="no-js">请启用 JavaScript，或查看 <a href="data/models.md">Markdown 参数表</a>。</p></noscript>
+</body>
+</html>

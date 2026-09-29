@@ -1,0 +1,92 @@
+name: Update watched models
+
+on:
+  workflow_dispatch:
+  schedule:
+    # UTC 01:17 = 北京时间每天 09:17；实际运行可能延迟。
+    - cron: '17 1 * * *'
+  push:
+    paths:
+      - 'watchlist.json'
+      - 'scripts/update_models.py'
+      - 'scripts/test_update_models.py'
+      - 'scripts/official_sources.py'
+      - 'scripts/test_official_sources.py'
+      - 'official_sources.json'
+      - '.github/workflows/update-models.yml'
+      - 'index.html'
+      - 'assets/**'
+      - 'data/**'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: model-watch-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify selection and update behavior
+        run: python -m unittest discover -s scripts -p 'test_*.py'
+      - name: Fetch watched model metadata
+        run: python scripts/update_models.py
+      - name: Commit only when data changes
+        run: |
+          git add data/models.json data/models.md
+          if git diff --cached --quiet; then
+            echo "No model metadata changes."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data: update watched model metadata'
+          git push
+      - name: Pass the current check report to deployment
+        uses: actions/upload-artifact@v4
+        with:
+          name: model-data
+          path: data/
+          retention-days: 7
+
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # 读取采集任务刚提交的数据，而非工作流触发时的旧提交。
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/configure-pages@v5
+      - uses: actions/download-artifact@v4
+        with:
+          name: model-data
+          path: data
+      - name: Prepare public site
+        run: |
+          mkdir -p _site/data
+          cp index.html watchlist.json _site/
+          cp -R assets _site/assets
+          cp data/*.json data/models.md _site/data/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

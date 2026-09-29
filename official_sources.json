@@ -1,0 +1,504 @@
+{
+  "models": {
+    "openai/gpt-6-astra": {
+      "url": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      "official_model_id": "gpt-6-astra",
+      "scope": "OpenAI 官方 API；功能支持可能随端点和推理模式不同",
+      "requires": [
+        "^GPT\\-6\\ Astra Model \\| OpenAI API"
+      ],
+      "fields": {
+        "context_tokens": {
+          "type": "tokens",
+          "pattern": "(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) context window"
+        },
+        "max_output_tokens": {
+          "type": "tokens",
+          "pattern": "(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) max output tokens"
+        },
+        "input_modalities": {
+          "pattern": "Modalities\\s+Text\\s+Input and output\\s+Image\\s+Input only",
+          "value": [
+            "text",
+            "image"
+          ]
+        },
+        "output_modalities": {
+          "pattern": "Modalities\\s+Text\\s+Input and output",
+          "value": [
+            "text"
+          ]
+        },
+        "tool_call": {
+          "pattern": "Function calling\\s+Supported",
+          "value": true
+        },
+        "reasoning": {
+          "pattern": "Reasoning token support",
+          "value": true
+        }
+      }
+    },
+    "openai/gpt-6-sol": {
+      "url": "https://developers.openai.com/api/docs/models/gpt-6-sol",
+      "official_model_id": "gpt-6-sol",
+      "scope": "OpenAI 官方 API；功能支持可能随端点和推理模式不同",
+      "requires": [
+        "^GPT\\-6\\ Sol Model \\| OpenAI API"
+      ],
+      "fields": {
+        "context_tokens": {
+          "type": "tokens",
+          "pattern": "(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) context window"
+        },
+        "max_output_tokens": {
+          "type": "tokens",
+          "pattern": "(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) max output tokens"
+        },
+        "input_modalities": {
+          "pattern": "Modalities\\s+Text\\s+Input and output\\s+Image\\s+Input only",
+          "value": [
+            "text",
+            "image"
+          ]
+        },
+        "output_modalities": {
+          "pattern": "Modalities\\s+Text\\s+Input and output",
+          "value": [
+            "text"
+          ]
+        },
+        "tool_call": {
+          "pattern": "Function calling\\s+Supported",
+          "value": true
+        },
+        "reasoning": {
+          "pattern": "Reasoning token support",
+          "value": true
+        }
+      }
+    },
+    "openai/gpt-6-luna": {
+      "url": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+      "official_model_id": "gpt-6-luna",
+      "scope": "OpenAI 官方 API；功能支持可能随端点和推理模式不同",
+      "requires": [
+        "^GPT\\-6\\ Luna Model \\| OpenAI API"
+      ],
+      "fields": {
+        "context_tokens": {
+          "type": "tokens",
+          "pattern": "(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) context window"
+        },
+        "max_output_tokens": {
+          "type": "tokens",
+          "pattern": "(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) max output tokens"
+        },
+        "input_modalities": {
+          "pattern": "Modalities\\s+Text\\s+Input and output\\s+Image\\s+Input only",
+          "value": [
+            "text",
+            "image"
+          ]
+        },
+        "output_modalities": {
+          "pattern": "Modalities\\s+Text\\s+Input and output",
+          "value": [
+            "text"
+          ]
+        },
+        "tool_call": {
+          "pattern": "Function calling\\s+Supported",
+          "value": true
+        },
+        "reasoning": {
+          "pattern": "Reasoning token support",
+          "value": true
+        }
+      }
+    },
+    "anthropic/claude-opus-5.5": {
+      "url": "https://docs.anthropic.com/en/docs/about-claude/models/overview",
+      "official_model_id": "claude-opus-5-5",
+      "scope": "Anthropic 官方 Claude API",
+      "requires": [
+        "claude\\-opus\\-5\\-5"
+      ],
+      "fields": {
+        "input_modalities": {
+          "pattern": "All current models support text and image input",
+          "value": [
+            "text",
+            "image"
+          ]
+        },
+        "output_modalities": {
+          "pattern": "All current models support text and image input, text output",
+          "value": [
+            "text"
+          ]
+        },
+        "tool_call": {
+          "pattern": "All current models support text and image input, text output, multilingual capabilities, vision, and tool use",
+          "value": true
+        }
+      },
+      "kind": "claude_table"
+    },
+    "anthropic/claude-sonnet-5.5": {
+      "url": "https://docs.anthropic.com/en/docs/about-claude/models/overview",
+      "official_model_id": "claude-sonnet-5-5",
+      "scope": "Anthropic 官方 Claude API",
+      "requires": [
+        "claude\\-sonnet\\-5\\-5"
+      ],
+      "fields": {
+        "input_modalities": {
+          "pattern": "All current models support text and image input",
+          "value": [
+            "text",
+            "image"
+          ]
+        },
+        "output_modalities": {
+          "pattern": "All current models support text and image input, text output",
+          "value": [
+            "text"
+          ]
+        },
+        "tool_call": {
+          "pattern": "All current models support text and image input, text output, multilingual capabilities, vision, and tool use",
+          "value": true
+        }
+      },
+      "kind": "claude_table"
+    },
+    "deepseek/deepseek-v4.1-flash": {
+      "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+      "official_model_id": "deepseek-flash",
+      "scope": "DeepSeek 官方 API；deepseek-flash 当前映射 V4.1 Flash",
+      "requires": [
+        "\\| MODEL VERSION \\| DeepSeek-V4\\.1-Flash \\| DeepSeek-V4-Pro-0813"
+      ],
+      "fields": {
+        "context_tokens": {
+          "type": "tokens",
+          "pattern": "\\| CONTEXT LENGTH \\| (?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)\\s*$"
+        },
+        "max_output_tokens": {
+          "type": "tokens",
+          "pattern": "\\| MAX OUTPUT \\| MAXIMUM: (?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)\\s*$"
+        },
+        "input_modalities": {
+          "pattern": "\\| Vision \\| ✓ \\| Not supported",
+          "value": [
+            "text",
+            "image"
+          ]
+        },
+        "tool_call": {
+          "pattern": "\\| Tool Calls \\| ✓ \\| ✓",
+          "value": true
+        },
+        "reasoning": {
+          "pattern": "\\| THINKING MODE \\| Supports both non-thinking and thinking",
+          "value": true
+        }
+      }
+    },
+    "z-ai/glm-5.3": {
+      "url": "https://docs.z.ai/guides/llm/glm-5.3",
+      "official_model_id": "glm-5.3",
+      "scope": "Z.ai 官方 Model API",
+      "requires": [
+        "GLM-5.3 currently supports text-only inputs"
+      ],
+      "fields": {
+        "context_tokens": {
+          "type": "tokens",
+          "pattern": "GLM-5\\.3 currently supports text-only inputs, with a (?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)-token context window"
+        },
+        "max_output_tokens": {
+          "type": "tokens",
+          "pattern": "maximum output length of (?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) tokens"
+        },
+        "input_modalities": {
+          "pattern": "GLM-5.3 currently supports text-only inputs",
+          "value": [
+            "text"
+          ]
+        },
+        "tool_call": {
+          "pattern": "Function Calling[^\\n]+Provides powerful tool-calling capabilities",
+          "value": true
+        },
+        "reasoning": {
+          "pattern": "GLM-5.3 always operates with reasoning enabled",
+          "value": true
+        }
+      }
+    },
+    "z-ai/glm-5.3-flash": {
+      "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
+      "official_model_id": "glm-5.3-flash",
+      "scope": "Z.ai 官方 Model API；Coding Plan 可用型号可能不同",
+      "requires": [
+        "\\*\\*Model Code\\*\\*：`glm-5.3-flash`/`glm-5.3-flashx`"
+      ],
+      "fields": {
+        "context_tokens": {
+          "type": "tokens",
+          "pattern": "<Card title=\"Context Length\"[^>]*>\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)\\s*</Card>"
+        },
+        "max_output_tokens": {
+          "type": "tokens",
+          "pattern": "<Card title=\"Maximum Output Tokens\"[^>]*>\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)\\s*</Card>"
+        },
+        "input_modalities": {
+          "pattern": "<Card title=\"Input Modality\"[^>]*>\\s*Video / Image / Text / File",
+          "value": [
+            "text",
+            "image",
+            "video",
+            "file"
+          ]
+        },
+        "output_modalities": {
+          "pattern": "<Card title=\"Output Modality\"[^>]*>\\s*Text",
+          "value": [
+            "text"
+          ]
+        },
+        "tool_call": {
+          "pattern": "Provides powerful tool-calling capabilities",
+          "value": true
+        },
+        "reasoning": {
+          "pattern": "thinking cannot be disabled",
+          "value": true
+        }
+      }
+    },
+    "z-ai/glm-5.3-flashx": {
+      "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
+      "official_model_id": "glm-5.3-flashx",
+      "scope": "Z.ai 官方 Model API；Coding Plan 可用型号可能不同",
+      "requires": [
+        "\\*\\*Model Code\\*\\*：`glm-5.3-flash`/`glm-5.3-flashx`"
+      ],
+      "fields": {
+        "context_tokens": {
+          "type": "tokens",
+          "pattern": "<Card title=\"Context Length\"[^>]*>\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)\\s*</Card>"
+        },
+        "max_output_tokens": {
+          "type": "tokens",
+          "pattern": "<Card title=\"Maximum Output Tokens\"[^>]*>\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)\\s*</Card>"
+        },
+        "input_modalities": {
+          "pattern": "<Card title=\"Input Modality\"[^>]*>\\s*Video / Image / Text / File",
+          "value": [
+            "text",
+            "image",
+            "video",
+            "file"
+          ]
+        },
+        "output_modalities": {
+          "pattern": "<Card title=\"Output Modality\"[^>]*>\\s*Text",
+          "value": [
+            "text"
+          ]
+        },
+        "tool_call": {
+          "pattern": "Provides powerful tool-calling capabilities",
+          "value": true
+        },
+        "reasoning": {
+          "pattern": "thinking cannot be disabled",
+          "value": true
+        }
+      }
+    },
+    "moonshotai/kimi-k3": {
+      "url": "https://platform.kimi.ai/docs/guide/kimi-k3-quickstart",
+      "official_model_id": "kimi-k3",
+      "scope": "Kimi 官方 API",
+      "requires": [
+        "Kimi K3 is Kimi’s most capable flagship model"
+      ],
+      "fields": {
+        "context_tokens": {
+          "type": "tokens",
+          "pattern": "native visual understanding and a (?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)-token context window"
+        },
+        "input_modalities": {
+          "pattern": "\"type\": \"video_url\"",
+          "value": [
+            "text",
+            "image",
+            "video"
+          ]
+        },
+        "reasoning": {
+          "pattern": "K3 always has thinking mode enabled",
+          "value": true
+        }
+      }
+    },
+    "qwen/qwen3.8-max-0902": {
+      "url": "https://www.alibabacloud.com/help/en/model-studio/text-generation-model",
+      "official_model_id": "qwen3.8-max-0902",
+      "scope": "阿里云 Model Studio 官方 API；区域以官方页为准",
+      "requires": [
+        "qwen3\\.8\\-max\\-0902"
+      ],
+      "fields": {
+        "context_tokens": {
+          "type": "tokens",
+          "pattern": "qwen3\\.8\\-max\\-0902 \\|\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) \\|"
+        },
+        "reasoning": {
+          "pattern": "qwen3\\.8\\-max\\-0902 \\|\\s*\\S+ \\|\\s*Supported \\|",
+          "value": true
+        },
+        "tool_call": {
+          "pattern": "qwen3\\.8\\-max\\-0902 \\|\\s*\\S+ \\|\\s*Supported \\|\\s*Supported \\|",
+          "value": true
+        }
+      }
+    },
+    "qwen/qwen3.8-flash": {
+      "url": "https://www.alibabacloud.com/help/en/model-studio/text-generation-model",
+      "official_model_id": "qwen3.8-flash",
+      "scope": "阿里云 Model Studio 官方 API；区域以官方页为准",
+      "requires": [
+        "qwen3\\.8\\-flash"
+      ],
+      "fields": {
+        "context_tokens": {
+          "type": "tokens",
+          "pattern": "qwen3\\.8\\-flash \\|\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) \\|"
+        },
+        "reasoning": {
+          "pattern": "qwen3\\.8\\-flash \\|\\s*\\S+ \\|\\s*Supported \\|",
+          "value": true
+        },
+        "tool_call": {
+          "pattern": "qwen3\\.8\\-flash \\|\\s*\\S+ \\|\\s*Supported \\|\\s*Supported \\|",
+          "value": true
+        }
+      }
+    },
+    "qwen/qwen3.8-omni-flash": {
+      "url": "https://www.alibabacloud.com/help/en/model-studio/qwen3-8-omni-flash",
+      "official_model_id": "qwen3.8-omni-flash",
+      "scope": "阿里云 Model Studio 官方 API；输入上限按思考模式区分",
+      "requires": [
+        "qwen3.8-omni-flash Model Info"
+      ],
+      "fields": {
+        "context_tokens": {
+          "type": "tokens",
+          "pattern": "Context window \\| (?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) tokens"
+        },
+        "max_input_tokens_thinking": {
+          "type": "tokens",
+          "pattern": "Maximum input length \\(thinking mode\\) \\| (?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) tokens"
+        },
+        "max_input_tokens_non_thinking": {
+          "type": "tokens",
+          "pattern": "Maximum input length \\(non-thinking mode\\) \\| (?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) tokens"
+        },
+        "max_output_tokens": {
+          "type": "tokens",
+          "pattern": "Maximum output length \\| (?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) tokens"
+        },
+        "input_modalities": {
+          "pattern": "Input modalities \\| Text, images, audio, and video",
+          "value": [
+            "text",
+            "image",
+            "audio",
+            "video"
+          ]
+        },
+        "output_modalities": {
+          "pattern": "Output modalities \\| Text",
+          "value": [
+            "text"
+          ]
+        },
+        "tool_call": {
+          "pattern": "Function Calling \\| Supports custom tool calling",
+          "value": true
+        },
+        "reasoning": {
+          "pattern": "Thinking \\| Enabled by default",
+          "value": true
+        }
+      }
+    },
+    "qwen/qwen3.8-27b": {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/README.md",
+      "official_model_id": "Qwen3.8-27B",
+      "scope": "Qwen 官方开源权重模型卡；上下文列为原生上限，扩展能力另列",
+      "requires": [
+        "Qwen3\\.8\\-27B"
+      ],
+      "fields": {
+        "context_tokens": {
+          "type": "tokens",
+          "pattern": "Context Length: (?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) natively"
+        },
+        "context_extended_tokens": {
+          "type": "tokens",
+          "pattern": "Context Length: [\\d,]+ natively and extensible up to (?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) tokens"
+        },
+        "reasoning": {
+          "pattern": "reasoning_effort",
+          "value": true
+        },
+        "input_modalities": {
+          "pattern": "Native support for image and video understanding",
+          "value": [
+            "text",
+            "image",
+            "video"
+          ]
+        }
+      },
+      "label": "官方权重"
+    },
+    "qwen/qwen3.8-2.4t-a95b": {
+      "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/main/README.md",
+      "official_model_id": "Qwen3.8-2.4T-A95B",
+      "scope": "Qwen 官方开源权重模型卡；上下文列为原生上限，扩展能力另列",
+      "requires": [
+        "Qwen3\\.8\\-2\\.4T\\-A95B"
+      ],
+      "fields": {
+        "context_tokens": {
+          "type": "tokens",
+          "pattern": "Context Length: (?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) natively"
+        },
+        "context_extended_tokens": {
+          "type": "tokens",
+          "pattern": "Context Length: [\\d,]+ natively and extensible up to (?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?) tokens"
+        },
+        "reasoning": {
+          "pattern": "reasoning_effort",
+          "value": true
+        }
+      },
+      "label": "官方权重"
+    }
+  },
+  "unverified": {
+    "openai/gpt-6-astra-pro": "暂未找到与该 Pro 型号对应的独立官方规格页，未套用基础型号参数",
+    "openai/gpt-6-sol-pro": "暂未找到与该 Pro 型号对应的独立官方规格页，未套用基础型号参数",
+    "openai/gpt-6-luna-pro": "暂未找到与该 Pro 型号对应的独立官方规格页，未套用基础型号参数",
+    "x-ai/grok-4.7": "本次无法访问 xAI 官方文档，尚未核实此型号官方规格",
+    "qwen/qwen3.8-max-prime": "暂未核实该 Prime 型号的独立官方规格"
+  }
+}

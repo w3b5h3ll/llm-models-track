@@ -1,0 +1,16 @@
+{
+  "source": "openrouter",
+  "official_sources": "official_sources.json",
+  "models": [
+    {"provider": "deepseek", "id": "deepseek/deepseek-v4.1-flash"},
+    {"provider": "z-ai", "id": "z-ai/glm-5.3"},
+    {"provider": "z-ai", "id": "z-ai/glm-5.3-flash"},
+    {"provider": "z-ai", "id": "z-ai/glm-5.3-flashx"},
+    {"provider": "moonshotai", "id": "moonshotai/kimi-k3"},
+    {"provider": "qwen", "match": "qwen/qwen3.8-*", "exclude": ["*:*"]},
+    {"provider": "openai", "match": "openai/gpt-6-*", "exclude": ["*:*"]},
+    {"provider": "anthropic", "match": "anthropic/claude-opus-*", "exclude": ["*:*", "*preview*", "*latest*"], "latest": 1},
+    {"provider": "anthropic", "match": "anthropic/claude-sonnet-*", "exclude": ["*:*", "*preview*", "*latest*"], "latest": 1},
+    {"provider": "x-ai", "match": "x-ai/grok-*", "exclude": ["*:*", "*preview*", "*beta*", "*latest*"], "latest_family": "^(x-ai/grok-[0-9]+(?:\\.[0-9]+)*)(?:-|$)"}
+  ]
+}
