@@ -63,7 +63,9 @@ OpenRouter 负责发现关注名单中的型号与新版本；`official_sources.
 3. 打开 **Actions → Update watched models → Run workflow**。
 4. 成功后从 `deploy` 任务或 **Settings → Pages** 打开实际站点 URL，通常为 `https://用户名.github.io/仓库名/`。
 
-私有仓库使用 Pages 受账户套餐与站点可见性设置影响。模板已本地验证，尚未在你的 GitHub 仓库部署。
+本站已部署：[打开 Model Watch](https://w3b5h3ll.github.io/llm-models-track/)。采集和部署工作流已在 GitHub Actions 验证通过。
+
+私有仓库使用 Pages 受账户套餐与站点可见性设置影响。
 
 ### Actions 做了什么
 
