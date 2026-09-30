@@ -1,6 +1,6 @@
 {
   "source_url": "https://openrouter.ai/api/v1/models",
-  "changed_at": "2026-09-29T16:00:43+00:00",
+  "changed_at": "2026-09-30T06:08:56+00:00",
   "models": [
     {
       "provider": "anthropic",
@@ -895,7 +895,7 @@
         "scope": "OpenRouter model catalog; output limit from top_provider",
         "context_tokens": 1000000,
         "max_input_tokens": null,
-        "max_output_tokens": 235929,
+        "max_output_tokens": 131072,
         "input_modalities": [
           "text",
           "image",
@@ -1330,7 +1330,7 @@
         "name": "Z.ai: GLM 5.3",
         "source": "https://openrouter.ai/api/v1/models",
         "scope": "OpenRouter model catalog; output limit from top_provider",
-        "context_tokens": 1310720,
+        "context_tokens": 1048576,
         "max_input_tokens": null,
         "max_output_tokens": 943717,
         "input_modalities": [
@@ -1421,7 +1421,7 @@
         "name": "Z.ai: GLM 5.3 Flash",
         "source": "https://openrouter.ai/api/v1/models",
         "scope": "OpenRouter model catalog; output limit from top_provider",
-        "context_tokens": 1310720,
+        "context_tokens": 1048576,
         "max_input_tokens": null,
         "max_output_tokens": 943717,
         "input_modalities": [
