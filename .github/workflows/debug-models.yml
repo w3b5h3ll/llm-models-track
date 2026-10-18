@@ -1,0 +1,40 @@
+name: Debug models endpoint
+
+on:
+  workflow_dispatch:
+
+permissions:
+  models: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Probe inference endpoint
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "--- curl (headers + body) ---"
+          curl -sS -i --max-time 60 https://models.github.ai/inference/chat/completions \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"model":"openai/gpt-4.1-mini","messages":[{"role":"user","content":"reply with: ok"}],"max_tokens":16}' | head -c 3000
+          echo
+          echo "--- python urllib ---"
+          python3 - <<'PY'
+          import json, os, urllib.request
+          body = json.dumps({"model": "openai/gpt-4.1-mini",
+                             "messages": [{"role": "user", "content": "reply with: ok"}],
+                             "max_tokens": 16}).encode()
+          req = urllib.request.Request(
+              "https://models.github.ai/inference/chat/completions", data=body,
+              headers={"Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}",
+                       "Content-Type": "application/json"})
+          with urllib.request.urlopen(req, timeout=60) as r:
+              raw = r.read()
+              print("status:", r.status)
+              print("content-type:", r.headers.get("Content-Type"))
+              print("content-encoding:", r.headers.get("Content-Encoding"))
+              print("body head:", raw[:500])
+          PY
