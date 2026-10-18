@@ -1,6 +1,11 @@
 # Model Watch · 自选模型观察站
 
-定时更新你关注的模型参数，并通过 GitHub Pages 展示。**默认优先官方规格**，保留聚合平台参数作对照。纯 Python 标准库采集 + 原生 HTML/CSS/JavaScript，不需要前端构建、服务器或模型推理调用。
+定时更新你关注的模型参数与 token 薅羊毛活动，并通过 GitHub Pages 展示。**默认优先官方规格**，保留聚合平台参数作对照。纯 Python 标准库采集 + 原生 HTML/CSS/JavaScript，不需要前端构建、服务器或模型推理调用。
+
+站点包含两页：
+
+- `index.html` 模型参数表（本 README 主体说明）。
+- `deals.html` [Token 薅羊毛活动](#token-薅羊毛活动清单)：人工收录 + LLM 发现候选，每日自动核实官方页面。
 
 ## 现在的数据来源
 
@@ -69,13 +74,14 @@ OpenRouter 负责发现关注名单中的型号与新版本；`official_sources.
 
 ### Actions 做了什么
 
-`.github/workflows/update-models.yml` 每周一北京时间 **09:30** 运行，也支持手动触发；修改关注名单、采集代码、官方规则、网页或数据会触发运行。固定型号的参数通常较稳定，定期检查主要用于发现系列中的新型号及官方规格修订。
+`.github/workflows/update-models.yml` 每天北京时间 **09:30** 运行，也支持手动触发；修改关注名单、采集代码、官方规则、活动清单、网页或数据会触发运行。固定型号的参数通常较稳定，每日检查主要用于发现系列中的新型号、官方规格修订，以及薅羊毛活动的到期与失效。
 
 1. `checkout` 下载仓库，准备 Python，运行测试。
 2. 获取聚合目录并筛选关注型号，重新采集已配置的官方页面。
-3. 生成 JSON、Markdown、检查报告；参数或证据变化时用内置 `GITHUB_TOKEN` 提交数据。
-4. 把包含最新检查报告的数据作为 artifact 传给部署任务。
-5. 部署任务获取网页资源与最新数据，发布到 GitHub Pages。
+3. 运行 `discover_deals.py`：核实已收录活动，并调用 GitHub Models（用内置 `GITHUB_TOKEN`，需要 `models:read` 权限时在仓库设置中为默认 GITHUB_TOKEN 勾选）扫描来源页发现新候选。
+4. 生成 JSON、Markdown、检查报告；参数、证据或活动状态变化时用内置 `GITHUB_TOKEN` 分别提交数据。
+5. 把包含最新检查报告的数据作为 artifact 传给部署任务。
+6. 部署任务获取网页资源与最新数据，发布到 GitHub Pages。
 
 同一工作流包含采集和部署，不依赖机器人提交再次触发 `push`。公开目录查询不调用模型推理；GitHub Actions 用量按账户规则计费。
 
@@ -107,6 +113,18 @@ Pages 尚未启用时，采集可以成功而部署失败，启用后重新运�
 
 也保留 Models.dev 目录适配器（`source: "models.dev"`），但模型 ID 和 provider 格式不同，切换时需要同步调整关注名单与官方映射。它的线上访问本次未验证，不会自动混用两个目录源。
 
+## Token 薅羊毛活动清单
+
+`deals.html` 展示 AI 平台的免费额度、免费模型、错峰折扣、限时免费等活动。维护方式刻意分成三层，LLM 只负责“找+整理”，确定性代码负责“验真”，人只负责“确认”：
+
+1. **人工收录**（`deals.json` 的 `deals` 列表）：每条活动必须带 `evidence.quote`——收录时从官方页面复制的逐字原文。
+2. **每日核实**：`scripts/discover_deals.py` 每次运行重新访问证据页面，核对 quote 是否仍在；仍在 → 进行中，消失 → 保留旧证据并标“待复核”，`ends_at` 已过 → 已结束。
+3. **LLM 发现**（可选，依赖 `GITHUB_TOKEN`）：`deals_sources.json` 里的来源页每天抓取一次，出现优惠关键词才调用 GitHub Models 抽取；候选必须自带逐字 quote 并通过确定性复核，才会出现在 `data/deals.json` 的 `pending` 数组与页面“新发现候选”统计里。**确认方式：人工核对后把候选改写进 `deals.json` 的 `deals` 列表**（建议同时把来源页加进 `official_sources` 风格的来源清单）。
+
+`deals_sources.json` 支持配置 LLM 端点（默认 GitHub Models `openai/gpt-4.1-mini`，OpenAI 兼容协议，可换成任何自备 key 的供应商）、关键词门控（页面不含关键词就跳过 LLM，省钱省时）与来源列表（`url` / `provider` / `hint`）。
+
+本地无 token 环境用 `python3 scripts/discover_deals.py --skip-llm` 只跑核实；默认（无 `GITHUB_TOKEN`）也自动只核实。页面与数据文件：`data/deals.json`（发布数据 + pending 候选）、`data/deals_checks.json`（每条活动的核实状态）。
+
 ## 官方规则的维护
 
 `official_sources.json` 按精确模型 ID 配置 URL、官方 ID、渠道口径、页面身份断言及逐字段提取规则。字段应有可定位的官方原文证据；不要仅因名称相近就共享参数。页面结构或语义发生变化时，应查看失败报告，核对原文再修改规则。
@@ -120,10 +138,11 @@ Python 3.11+，无额外依赖。在项目根目录运行：
 ```bash
 python3 -m unittest discover -s scripts -p 'test_*.py'
 python3 scripts/update_models.py
+python3 scripts/discover_deals.py --skip-llm
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-打开 `http://127.0.0.1:8000`。不要双击 HTML，本地文件模式无法读取 JSON。更新脚本也支持 `--config /path/to/watchlist.json --output-dir /path/to/data`。
+打开 `http://127.0.0.1:8000`（模型参数）与 `http://127.0.0.1:8000/deals.html`（薅羊毛）。不要双击 HTML，本地文件模式无法读取 JSON。更新脚本也支持 `--config /path/to/watchlist.json --output-dir /path/to/data`。
 
 ## 参考
 

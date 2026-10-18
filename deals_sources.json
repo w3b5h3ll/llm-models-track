@@ -1,0 +1,35 @@
+{
+  "llm": {
+    "provider": "github-models",
+    "endpoint": "https://models.github.ai/inference/chat/completions",
+    "model": "openai/gpt-4.1-mini",
+    "max_page_chars": 12000
+  },
+  "keywords": ["免费", "限时", "赠送", "折扣", "半价", "额度", "trial", "free", "off-peak", "credit"],
+  "sources": [
+    {
+      "id": "openrouter-free-limits",
+      "url": "https://openrouter.ai/docs/api-reference/limits",
+      "provider": "openrouter",
+      "hint": "免费模型（ID 以 :free 结尾）的每日请求额度、充值门槛与速率限制变化"
+    },
+    {
+      "id": "siliconflow-pricing",
+      "url": "https://siliconflow.cn/pricing",
+      "provider": "siliconflow",
+      "hint": "输入输出价格为 0 元（免费）的对话模型名单变化，以及错峰/折扣价格"
+    },
+    {
+      "id": "deepseek-pricing",
+      "url": "https://api-docs.deepseek.com/quick_start/pricing",
+      "provider": "deepseek",
+      "hint": "错峰半价时段定义与价格表变化"
+    },
+    {
+      "id": "moonshot-pricing",
+      "url": "https://platform.moonshot.cn/pricing",
+      "provider": "moonshot",
+      "hint": "限时免费能力（如文件接口）、赠送额度与价格变化"
+    }
+  ]
+}

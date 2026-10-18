@@ -1,0 +1,68 @@
+{
+  "deals": [
+    {
+      "id": "openrouter-free-models",
+      "provider": "openrouter",
+      "title": "OpenRouter :free 模型免费额度",
+      "kind": "free_tier",
+      "reward": "未充值账户每天 50 次免费模型请求；累计充值满 $10 后提升为每天 1000 次",
+      "claim_url": "https://openrouter.ai/docs/api-reference/limits",
+      "claim_steps": "使用 ID 以 :free 结尾的模型直接调用，无需额外领取",
+      "eligibility": "所有 OpenRouter 账户；每日上限按累计充值金额分档",
+      "ends_at": null,
+      "source_id": "openrouter-free-limits",
+      "evidence": {
+        "url": "https://openrouter.ai/docs/api-reference/limits",
+        "quote": "Free usage limits: If you’re using a free model variant (with an ID ending in :), the following limits apply:"
+      }
+    },
+    {
+      "id": "siliconflow-free-llms",
+      "provider": "siliconflow",
+      "title": "硅基流动免费对话模型",
+      "kind": "free_model",
+      "reward": "Hunyuan-MT-7B、Xing4.0-29B 等模型输入输出均为 0 元（免费），价格页标“免费”",
+      "claim_url": "https://siliconflow.cn/pricing",
+      "claim_steps": "注册后在模型列表筛选免费模型直接调用",
+      "eligibility": "硅基流动注册用户",
+      "ends_at": null,
+      "source_id": "siliconflow-pricing",
+      "evidence": {
+        "url": "https://siliconflow.cn/pricing",
+        "quote": "tencent/Hunyuan-MT-7B\n免费\n免费\n-"
+      }
+    },
+    {
+      "id": "deepseek-offpeak",
+      "provider": "deepseek",
+      "title": "DeepSeek 错峰时段半价",
+      "kind": "discount",
+      "reward": "错峰时段价格为高峰的一半；高峰为 UTC 周一至周五 01:00-04:00 与 06:00-10:00（中国法定节假日除外），其余全部时段（含周末与节假日）错峰",
+      "claim_url": "https://api-docs.deepseek.com/quick_start/pricing",
+      "claim_steps": "无需领取，错峰时段调用自动按半价计费",
+      "eligibility": "所有 DeepSeek API 用户",
+      "ends_at": null,
+      "source_id": "deepseek-pricing",
+      "evidence": {
+        "url": "https://api-docs.deepseek.com/quick_start/pricing",
+        "quote": "(2) Off-peak rates are half of the peak rates. Peak hours are 01:00 - 04:00 and 06:00 - 10:00 UTC, Monday through Friday, excluding Chinese public holidays. All other hours are off-peak, including weekends and Chinese public holidays in full."
+      }
+    },
+    {
+      "id": "kimi-file-api-free",
+      "provider": "moonshot",
+      "title": "Kimi 文件接口限时免费",
+      "kind": "limited_time_free",
+      "reward": "文件内容抽取与文件存储接口本身不产生费用（限时）",
+      "claim_url": "https://platform.moonshot.cn/pricing",
+      "claim_steps": "直接调用文件相关接口，上传并抽取文档不单独计费",
+      "eligibility": "所有 Kimi API 用户",
+      "ends_at": null,
+      "source_id": "moonshot-pricing",
+      "evidence": {
+        "url": "https://platform.moonshot.cn/pricing",
+        "quote": "文件相关接口（文件内容抽取/文件存储）限时免费，即您只上传并抽取文档时，文件接口本身不产生费用。"
+      }
+    }
+  ]
+}

@@ -3,8 +3,8 @@ name: Update watched models
 on:
   workflow_dispatch:
   schedule:
-    # UTC 周一 01:30 = 北京时间每周一 09:30；实际运行可能延迟。
-    - cron: '30 1 * * 1'
+    # UTC 01:30 = 北京时间 09:30，每天运行；实际启动可能延迟。
+    - cron: '30 1 * * *'
   push:
     paths:
       - 'watchlist.json'
@@ -13,13 +13,19 @@ on:
       - 'scripts/official_sources.py'
       - 'scripts/test_official_sources.py'
       - 'official_sources.json'
+      - 'deals_sources.json'
+      - 'deals.json'
+      - 'scripts/discover_deals.py'
+      - 'scripts/test_discover_deals.py'
       - '.github/workflows/update-models.yml'
       - 'index.html'
+      - 'deals.html'
       - 'assets/**'
       - 'data/**'
 
 permissions:
   contents: write
+  models: read
 
 concurrency:
   group: model-watch-${{ github.ref }}
@@ -29,7 +35,7 @@ jobs:
   update:
     if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -39,18 +45,28 @@ jobs:
         run: python -m unittest discover -s scripts -p 'test_*.py'
       - name: Fetch watched model metadata
         run: python scripts/update_models.py
+      - name: Discover and verify token deals
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/discover_deals.py
       - name: Commit only when data changes
         run: |
           git add data/models.json data/models.md
-          if git diff --cached --quiet; then
-            echo "No model metadata changes."
-            exit 0
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'data: update watched model metadata'
+            git push
           fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'data: update watched model metadata'
-          git push
-      - name: Pass the current check report to deployment
+          git add data/deals.json
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'data: update token deals'
+            git push
+          fi
+          git diff HEAD --quiet || true
+      - name: Pass the current check reports to deployment
         uses: actions/upload-artifact@v4
         with:
           name: model-data
@@ -81,7 +97,7 @@ jobs:
       - name: Prepare public site
         run: |
           mkdir -p _site/data
-          cp index.html watchlist.json _site/
+          cp index.html deals.html watchlist.json _site/
           cp -R assets _site/assets
           cp data/*.json data/models.md _site/data/
       - uses: actions/upload-pages-artifact@v3

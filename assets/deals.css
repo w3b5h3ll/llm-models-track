@@ -1,0 +1,32 @@
+/* 薅羊毛页补充样式：状态标签、权益列、顶部导航。 */
+.site-nav { display: flex; gap: 20px; align-items: center; }
+.site-nav a { color: #c6c6c6; font-size: 12px; padding: 8px 0; }
+.site-nav a:hover { color: #fff; text-decoration: none; }
+.site-nav a[aria-current="page"] { color: #fff; font-weight: 600; }
+.intro-note { color: var(--muted); font-size: 12px; margin: 6px 0 0; max-width: 560px; }
+.kind-tag { display: inline-flex; padding: 1px 5px; font-size: 10px; line-height: 1.5; border-radius: 2px; color: #0043ce; background: #edf3ff; }
+.status-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; font-size: 11px; line-height: 1.5; border-radius: 2px; white-space: nowrap; }
+.status-badge::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
+.status-badge.active { color: #17633d; background: #e6f5ee; }
+.status-badge.stale { color: #795400; background: #fff4d1; }
+.status-badge.expired { color: #6f6f6f; background: #f0f0f0; }
+.reward-cell { max-width: 380px; white-space: normal; line-height: 1.55; }
+.deadline { font-variant-numeric: tabular-nums; }
+.deadline.soon { color: #a2191f; font-weight: 550; }
+.verified-cell { color: #6f6f6f; font-variant-numeric: tabular-nums; }
+#deals tr:hover { background: #f1f6ff; }
+#deals tr.selected { background: #e5efff; }
+#deals tr.selected td:first-child { box-shadow: inset 3px 0 var(--blue); }
+.table-scroll td:nth-child(4), .table-scroll th:nth-child(4), .table-scroll td:nth-child(6), .table-scroll th:nth-child(6) { text-align: left; }
+.pending-hint { margin: 4px 20px 16px; padding: 12px 16px; background: #f2edfc; border-left: 3px solid #7651c8; color: #49318f; font-size: 12px; }
+.pending-hint strong { font-weight: 600; }
+.pending-catalog { margin-top: 20px; }
+.pending-list { list-style: none; margin: 0; padding: 0; }
+.pending-item { display: grid; gap: 8px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.pending-item:last-child { border-bottom: 0; }
+.pending-head { display: flex; align-items: center; gap: 10px; }
+.pending-head strong { font-size: 13px; font-weight: 550; }
+.pending-reward { margin: 0; color: #262626; font-size: 12px; }
+.pending-item blockquote { margin: 0; padding: 10px 12px; border-left: 2px solid #a6c8ff; background: #f4f4f4; color: #525252; font-size: 11px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.pending-item a { font-size: 11px; }
+@media (max-width: 720px) { .site-nav { gap: 12px; } .site-nav a { font-size: 11px; padding: 6px 0; } .reward-cell { max-width: 220px; } }
