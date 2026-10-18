@@ -1,6 +1,6 @@
 # 关注模型参数
 
-数据最后变更采集时间（UTC）：2026-10-12T07:48:54+00:00
+数据最后变更采集时间（UTC）：2026-10-18T19:37:02+00:00
 
 每次检查的时间见 Actions 日志；下表仅在数据变化时更新。未知表示来源未提供。
 
@@ -8,7 +8,7 @@
 | --- | ---: | --- | ---: | --- | --- | --- | --- | --- |
 | anthropic/claude-opus-5.5 | 1000000 | 未知 | 128000 | text, image | text | 是 | 是 | [官方](https://docs.anthropic.com/en/docs/about-claude/models/overview) |
 | anthropic/claude-sonnet-5.5 | 1000000 | 未知 | 128000 | text, image | text | 是 | 是 | [官方](https://docs.anthropic.com/en/docs/about-claude/models/overview) |
-| deepseek/deepseek-v4.1-flash | 1000000 | 未知 | 384000 | text, image | 未知 | 是 | 是 | [官方](https://api-docs.deepseek.com/quick_start/pricing/) |
+| deepseek/deepseek-v4.1-flash | 1000000 | 未知 | 384000 | text, image | 未知 | 是 | 是 | [官方（旧快照）](https://api-docs.deepseek.com/quick_start/pricing/) |
 | moonshotai/kimi-k3 | 1000000 | 未知 | 未知 | text, image, video | 未知 | 未知 | 是 | [官方](https://platform.kimi.ai/docs/guide/kimi-k3-quickstart) |
 | openai/gpt-6-astra | 1050000 | 未知 | 128000 | text, image | text | 是 | 是 | [官方](https://developers.openai.com/api/docs/models/gpt-6-astra) |
 | openai/gpt-6-astra-pro | 1050000 | 未知 | 128000 | file, image, text | text | 是 | 是 | [聚合平台](https://openrouter.ai/api/v1/models) |
