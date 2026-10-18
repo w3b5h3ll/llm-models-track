@@ -78,7 +78,7 @@ OpenRouter 负责发现关注名单中的型号与新版本；`official_sources.
 
 1. `checkout` 下载仓库，准备 Python，运行测试。
 2. 获取聚合目录并筛选关注型号，重新采集已配置的官方页面。
-3. 运行 `discover_deals.py`：核实已收录活动，并调用 GitHub Models（用内置 `GITHUB_TOKEN`，需要 `models:read` 权限时在仓库设置中为默认 GITHUB_TOKEN 勾选）扫描来源页发现新候选。
+3. 运行 `discover_deals.py`：核实已收录活动，并调用 OpenAI 兼容 LLM 接口（密钥来自仓库 secret `LLM_API_KEY`，默认 Z.ai `glm-5.3-flash`）扫描来源页发现新候选；未配置密钥时只核实。
 4. 生成 JSON、Markdown、检查报告；参数、证据或活动状态变化时用内置 `GITHUB_TOKEN` 分别提交数据。
 5. 把包含最新检查报告的数据作为 artifact 传给部署任务。
 6. 部署任务获取网页资源与最新数据，发布到 GitHub Pages。
@@ -119,11 +119,11 @@ Pages 尚未启用时，采集可以成功而部署失败，启用后重新运�
 
 1. **人工收录**（`deals.json` 的 `deals` 列表）：每条活动必须带 `evidence.quote`——收录时从官方页面复制的逐字原文。
 2. **每日核实**：`scripts/discover_deals.py` 每次运行重新访问证据页面，核对 quote 是否仍在；仍在 → 进行中，消失 → 保留旧证据并标“待复核”，`ends_at` 已过 → 已结束。
-3. **LLM 发现**（可选，依赖 `GITHUB_TOKEN`）：`deals_sources.json` 里的来源页每天抓取一次，出现优惠关键词才调用 GitHub Models 抽取；候选必须自带逐字 quote 并通过确定性复核，才会出现在 `data/deals.json` 的 `pending` 数组与页面“新发现候选”统计里。**确认方式：人工核对后把候选改写进 `deals.json` 的 `deals` 列表**（建议同时把来源页加进 `official_sources` 风格的来源清单）。
+3. **LLM 发现**（可选，依赖仓库 secret `LLM_API_KEY`）：`deals_sources.json` 里的来源页每天抓取一次，出现优惠关键词才调用 LLM 抽取；候选必须自带逐字 quote 并通过确定性复核，才会出现在 `data/deals.json` 的 `pending` 数组与页面“新发现候选”统计里。**确认方式：人工核对后把候选改写进 `deals.json` 的 `deals` 列表**（建议同时把来源页加进 `official_sources` 风格的来源清单）。
 
-`deals_sources.json` 支持配置 LLM 端点（默认 GitHub Models `openai/gpt-4.1-mini`，OpenAI 兼容协议，可换成任何自备 key 的供应商）、关键词门控（页面不含关键词就跳过 LLM，省钱省时）与来源列表（`url` / `provider` / `hint`）。
+`deals_sources.json` 支持配置 LLM 端点（默认 Z.ai `glm-5.3-flash`，OpenAI 兼容协议，可换成任何自备 key 的供应商；密钥放仓库 secret `LLM_API_KEY`，也可用环境变量 `LLM_ENDPOINT` / `LLM_MODEL` 覆盖端点与模型名）、关键词门控（页面不含关键词就跳过 LLM，省钱省时）与来源列表（`url` / `provider` / `hint`）。
 
-本地无 token 环境用 `python3 scripts/discover_deals.py --skip-llm` 只跑核实；默认（无 `GITHUB_TOKEN`）也自动只核实。页面与数据文件：`data/deals.json`（发布数据 + pending 候选）、`data/deals_checks.json`（每条活动的核实状态）。
+本地无密钥环境用 `python3 scripts/discover_deals.py --skip-llm` 只跑核实；默认（无 `LLM_API_KEY`）也自动只核实。页面与数据文件：`data/deals.json`（发布数据 + pending 候选）、`data/deals_checks.json`（每条活动的核实状态）。
 
 ## 官方规则的维护
 

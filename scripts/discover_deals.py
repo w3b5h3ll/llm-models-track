@@ -20,8 +20,8 @@ from pathlib import Path
 from official_sources import fetch_page
 
 ROOT = Path(__file__).resolve().parents[1]
-GITHUB_MODELS_ENDPOINT = "https://models.github.ai/inference/chat/completions"
-GITHUB_MODELS_MODEL = "openai/gpt-4.1-mini"
+DEFAULT_LLM_ENDPOINT = "https://api.z.ai/api/paas/v4/chat/completions"
+DEFAULT_LLM_MODEL = "glm-5.3-flash"
 
 PENDING_KINDS = ("free_tier", "free_model", "discount", "limited_time_free", "credits")
 
@@ -61,7 +61,11 @@ def call_llm(endpoint, model, api_key, page_text, url, hint, timeout=90):
         "User-Agent": "model-watch/1.0",
     })
     with urllib.request.urlopen(request, timeout=timeout) as response:
-        payload = json.load(response)
+        raw = response.read()
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError:
+        raise ValueError(f"LLM 端点返回非 JSON（开头 {raw[:60]!r}），检查端点/密钥/模型名")
     content = payload["choices"][0]["message"]["content"]
     match = re.search(r'\[.*\]', content, re.S)
     if not match:
@@ -235,11 +239,12 @@ def main():
     pending, discover_checks = [], {}
     if not args.skip_llm:
         llm_config = dict(sources_config.get("llm", {}))
-        llm_config["endpoint"] = llm_config.get("endpoint", GITHUB_MODELS_ENDPOINT)
-        llm_config["model"] = llm_config.get("model", GITHUB_MODELS_MODEL)
-        llm_config["api_key"] = os.environ.get("GITHUB_TOKEN") or llm_config.get("api_key")
+        llm_config["endpoint"] = os.environ.get("LLM_ENDPOINT") or llm_config.get("endpoint") or DEFAULT_LLM_ENDPOINT
+        llm_config["model"] = os.environ.get("LLM_MODEL") or llm_config.get("model") or DEFAULT_LLM_MODEL
+        llm_config["max_page_chars"] = int(llm_config.get("max_page_chars", 12000))
+        llm_config["api_key"] = os.environ.get("LLM_API_KEY") or llm_config.get("api_key")
         if not llm_config["api_key"]:
-            print("::warning::缺少 GITHUB_TOKEN，跳过 LLM 发现阶段，仅核实已收录活动")
+            print("::warning::缺少 LLM_API_KEY，跳过 LLM 发现阶段，仅核实已收录活动")
             args.skip_llm = True
         else:
             pending, discover_checks = discover(

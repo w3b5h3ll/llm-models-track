@@ -1,8 +1,8 @@
 {
   "llm": {
-    "provider": "github-models",
-    "endpoint": "https://models.github.ai/inference/chat/completions",
-    "model": "openai/gpt-4.1-mini",
+    "provider": "z-ai",
+    "endpoint": "https://api.z.ai/api/paas/v4/chat/completions",
+    "model": "glm-5.3-flash",
     "max_page_chars": 12000
   },
   "keywords": ["免费", "限时", "赠送", "折扣", "半价", "额度", "trial", "free", "off-peak", "credit"],

@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-18T19:37:03+00:00",
+  "checked_at": "2026-10-18T19:46:39+00:00",
   "deals": [
     {
       "id": "openrouter-free-models",
@@ -80,22 +80,5 @@
   ],
   "pending": [],
   "pending_note": "待确认候选为空：确认后的活动请写入 deals.json 的 deals 列表",
-  "discover_checks": {
-    "openrouter-free-limits": {
-      "status": "failed",
-      "message": "LLM 抽取失败：Expecting value: line 1 column 1 (char 0)"
-    },
-    "siliconflow-pricing": {
-      "status": "failed",
-      "message": "LLM 抽取失败：Expecting value: line 1 column 1 (char 0)"
-    },
-    "deepseek-pricing": {
-      "status": "failed",
-      "message": "LLM 抽取失败：Expecting value: line 1 column 1 (char 0)"
-    },
-    "moonshot-pricing": {
-      "status": "failed",
-      "message": "LLM 抽取失败：Expecting value: line 1 column 1 (char 0)"
-    }
-  }
+  "discover_checks": {}
 }
