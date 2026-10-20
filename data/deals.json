@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-19T06:21:01+00:00",
+  "checked_at": "2026-10-20T05:18:09+00:00",
   "deals": [
     {
       "id": "openrouter-free-models",
@@ -76,6 +76,63 @@
       "status": "active",
       "note": "",
       "verified_at": "2026-10-18T19:19:07+00:00"
+    },
+    {
+      "id": "aliyun-bailian-free-quota",
+      "provider": "aliyun",
+      "title": "阿里云百炼新人免费额度",
+      "kind": "free_tier",
+      "reward": "首次开通百炼自动发放，每个模型独立免费额度（通常 100 万 Token），有效期 90 天，用完或过期即止",
+      "claim_url": "https://help.aliyun.com/zh/model-studio/new-free-quota",
+      "claim_steps": "访问百炼控制台（华北2-北京地域），阅读并同意协议后系统自动开通并发放，无需领取",
+      "eligibility": "新开通百炼的账号；仅华北2（北京）地域模型享有；同一实名主体不可重复领取",
+      "ends_at": null,
+      "source_id": "aliyun-free-quota",
+      "evidence": {
+        "url": "https://help.aliyun.com/zh/model-studio/new-free-quota",
+        "quote": "每个模型均有独立的免费额度（通常为 100 万 Token），不能跨模型合并或转移使用。"
+      },
+      "status": "active",
+      "note": "",
+      "verified_at": "2026-10-20T05:18:09+00:00"
+    },
+    {
+      "id": "baidu-qianfan-free-quota",
+      "provider": "baidu",
+      "title": "百度千帆新用户免费 Tokens",
+      "kind": "free_tier",
+      "reward": "首次开通千帆自动发放指定模型免费额度：ERNIE-4.5/X1-Turbo、DeepSeek-R1/V3 系列、Kimi-K2、Qwen3 等共 17 个模型，各 100 万 Tokens，有效期 3 个月",
+      "claim_url": "https://cloud.baidu.com/doc/qianfan/s/Imi2rpirg",
+      "claim_steps": "访问千帆大模型平台，阅读并同意用户协议后系统自动开通并发放",
+      "eligibility": "2025年10月24日0点起新开通千帆的用户；仅抵扣预置模型在线推理，不支持批量推理",
+      "ends_at": null,
+      "source_id": "baidu-free-quota",
+      "evidence": {
+        "url": "https://cloud.baidu.com/doc/qianfan/s/Imi2rpirg",
+        "quote": "首次开通千帆大模型时，平台将自动发放指定模型的免费使用额度，赠送服务范围、Tokens量以及有限期如下表所示："
+      },
+      "status": "active",
+      "note": "",
+      "verified_at": "2026-10-20T05:18:09+00:00"
+    },
+    {
+      "id": "tencent-hunyuan-free-quota",
+      "provider": "tencent",
+      "title": "腾讯混元免费资源包",
+      "kind": "free_tier",
+      "reward": "首次开通混元生文发放一次性免费资源包：Hunyuan-a13b 共 100 万 tokens（共享消耗）、Hunyuan-embedding 100 万 tokens，有效期 1 年，结算时优先扣减",
+      "claim_url": "https://cloud.tencent.com/document/product/1729/97731",
+      "claim_steps": "完成腾讯云实名认证后，首次在混元大模型控制台单击「立即使用」即获得",
+      "eligibility": "通过腾讯云个人或企业实名认证、首次开通混元大模型服务的用户",
+      "ends_at": null,
+      "source_id": "tencent-hunyuan-billing",
+      "evidence": {
+        "url": "https://cloud.tencent.com/document/product/1729/97731",
+        "quote": "首次开通腾讯混元大模型服务后，混元生文将发放一定量级的免费调用额度，供您测试体验。免费调用额度将以一次性的免费资源包的形式发放，并在计费结算时优先扣减。"
+      },
+      "status": "active",
+      "note": "",
+      "verified_at": "2026-10-20T05:18:09+00:00"
     }
   ],
   "pending": [],
