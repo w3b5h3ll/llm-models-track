@@ -1,6 +1,7 @@
 """Verified official documentation adapters. Never fill official gaps with relay data."""
 import concurrent.futures
 import copy
+import gzip
 import json
 import re
 import urllib.request
@@ -47,7 +48,10 @@ def page_text(raw):
 def fetch_page(url):
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Model-Watch; documentation sync)'})
     with urllib.request.urlopen(req, timeout=25) as response:
-        return page_text(response.read().decode('utf-8'))
+        raw = response.read()
+        if raw[:2] == b'\x1f\x8b':
+            raw = gzip.decompress(raw)
+        return page_text(raw.decode('utf-8'))
 
 
 def token_count(raw):

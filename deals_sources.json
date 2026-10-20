@@ -30,6 +30,24 @@
       "url": "https://platform.moonshot.cn/pricing",
       "provider": "moonshot",
       "hint": "限时免费能力（如文件接口）、赠送额度与价格变化"
+    },
+    {
+      "id": "aliyun-free-quota",
+      "url": "https://help.aliyun.com/zh/model-studio/new-free-quota",
+      "provider": "aliyun",
+      "hint": "新人免费额度的发放规则、每模型额度大小、有效期（90 天）与适用地域变化"
+    },
+    {
+      "id": "baidu-free-quota",
+      "url": "https://cloud.baidu.com/doc/qianfan/s/Imi2rpirg",
+      "provider": "baidu",
+      "hint": "新用户免费 Tokens 的赠送模型名单、各模型 Tokens 量与有效期（3 个月）变化"
+    },
+    {
+      "id": "tencent-hunyuan-billing",
+      "url": "https://cloud.tencent.com/document/product/1729/97731",
+      "provider": "tencent",
+      "hint": "混元免费资源包大小、有效期（1 年）、适用模型与结算顺序变化"
     }
   ]
 }
