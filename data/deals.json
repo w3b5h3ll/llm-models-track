@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-22T06:11:24+00:00",
+  "checked_at": "2026-10-23T06:06:47+00:00",
   "deals": [
     {
       "id": "openrouter-free-models",
@@ -56,7 +56,7 @@
       },
       "status": "stale",
       "note": "官方页面已找不到活动原文，请人工复核或移除",
-      "verified_at": "2026-10-22T06:11:24+00:00"
+      "verified_at": "2026-10-23T06:06:47+00:00"
     },
     {
       "id": "kimi-file-api-free",
