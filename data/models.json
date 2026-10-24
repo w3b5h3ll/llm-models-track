@@ -1,6 +1,6 @@
 {
   "source_url": "https://openrouter.ai/api/v1/models",
-  "changed_at": "2026-10-23T06:06:45+00:00",
+  "changed_at": "2026-10-24T06:01:52+00:00",
   "models": [
     {
       "provider": "anthropic",
@@ -362,13 +362,13 @@
         "scope": "Kimi 官方 API",
         "label": "官方 API",
         "evidence_updated_at": "2026-09-29T15:24:03+00:00",
-        "status": "verified"
+        "status": "stale"
       },
       "max_input_tokens_thinking": null,
       "max_input_tokens_non_thinking": null,
       "context_extended_tokens": null,
-      "official_status": "verified",
-      "official_note": ""
+      "official_status": "failed",
+      "official_note": "官方页面身份或结构校验失败"
     },
     {
       "provider": "openai",
@@ -1423,7 +1423,7 @@
         "scope": "OpenRouter model catalog; output limit from top_provider",
         "context_tokens": 1048576,
         "max_input_tokens": null,
-        "max_output_tokens": 943718,
+        "max_output_tokens": 943717,
         "input_modalities": [
           "text",
           "image",
