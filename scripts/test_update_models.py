@@ -57,6 +57,51 @@ class ModelWatchTests(unittest.TestCase):
         self.assertEqual(row["input_modalities"], ["audio"])
         self.assertIs(row["tool_call"], False)
 
+    def test_newer_provider_model_is_tracked_automatically(self):
+        payload = {"data": [
+            {"id": "lab/model-4.7", "created": 20, "context_length": 200},
+            {"id": "lab/model-5", "created": 40, "context_length": 300},
+            {"id": "lab/model-3", "created": 5, "context_length": 100},
+            {"id": "lab/model-5:free", "created": 50, "context_length": 300},
+            {"id": "lab/model-5-preview", "created": 60, "context_length": 300},
+            {"id": "other/new", "created": 70, "context_length": 10},
+        ]}
+        rule = {"provider": "lab", "id": "lab/model-4.7"}
+        seed = m.resolve("openrouter", payload, [rule])
+        tracked = m.expand_tracked("openrouter", payload, [rule], seed, [])
+        self.assertEqual(
+            [(row["id"], row.get("track")) for row in tracked],
+            [("lab/model-4.7", None), ("lab/model-5", "auto")],
+        )
+
+    def test_latest_handoff_keeps_the_previous_model(self):
+        payload = {"data": [
+            {"id": "lab/model-4.7", "created": 20, "context_length": 200},
+            {"id": "lab/model-5", "created": 40, "context_length": 300},
+        ]}
+        rule = {**self.rule, "latest": 1}
+        seed = m.resolve("openrouter", payload, [rule])
+        previous = [{"provider": "lab", "id": "lab/model-4.7"}]
+        tracked = m.expand_tracked("openrouter", payload, [rule], seed, previous)
+        self.assertEqual(
+            [(row["id"], row.get("track")) for row in tracked],
+            [("lab/model-5", None), ("lab/model-4.7", "kept")],
+        )
+        again = m.expand_tracked("openrouter", payload, [rule], seed, [
+            {"provider": "lab", "id": "lab/model-5"},
+            {"provider": "lab", "id": "lab/model-4.7", "track": "kept"},
+        ])
+        self.assertEqual(again, tracked)
+
+    def test_ignore_drops_seed_and_automatic_models(self):
+        payload = {"data": [
+            {"id": "lab/model-4.7", "created": 20},
+            {"id": "lab/model-5", "created": 40},
+        ]}
+        seed = m.resolve("openrouter", payload, [self.rule])
+        tracked = m.expand_tracked("openrouter", payload, [self.rule], seed, [], ["lab/model-5", "lab/model-4.20"])
+        self.assertEqual([row["id"] for row in tracked], ["lab/model-4.7"])
+
     def test_unchanged_output_and_failure_preserve_snapshot(self):
         with tempfile.TemporaryDirectory() as tmp:
             config, out = Path(tmp) / "watchlist.json", Path(tmp) / "data"

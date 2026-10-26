@@ -176,9 +176,9 @@
     "deepseek/deepseek-v4.1-flash": {
       "url": "https://api-docs.deepseek.com/quick_start/pricing/",
       "official_model_id": "deepseek-flash",
-      "scope": "DeepSeek 官方 API；deepseek-flash 当前映射 V4.1 Flash",
+      "scope": "DeepSeek 官方 API；deepseek-flash 当前映射 V4.1 Flash，页面版本号可带日期后缀",
       "requires": [
-        "\\| MODEL VERSION \\| DeepSeek-V4\\.1-Flash \\| DeepSeek-V4-Pro-0813"
+        "\\| MODEL VERSION \\| DeepSeek-V4\\.1-Flash(?:-[0-9]+)? \\| DeepSeek-V4-Pro-0813"
       ],
       "fields": {
         "context_tokens": {
@@ -248,14 +248,14 @@
       "fields": {
         "context_tokens": {
           "type": "tokens",
-          "pattern": "<Card title=\"Context Length\"[^>]*>\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)\\s*</Card>"
+          "pattern": "> \\*\\*Context Length\\*\\*\\s*\\n>\\s*\\n>\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)"
         },
         "max_output_tokens": {
           "type": "tokens",
-          "pattern": "<Card title=\"Maximum Output Tokens\"[^>]*>\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)\\s*</Card>"
+          "pattern": "> \\*\\*Maximum Output Tokens\\*\\*\\s*\\n>\\s*\\n>\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)"
         },
         "input_modalities": {
-          "pattern": "<Card title=\"Input Modality\"[^>]*>\\s*Video / Image / Text / File",
+          "pattern": "> \\*\\*Input Modality\\*\\*\\s*\\n>\\s*\\n>\\s*Video / Image / Text / File",
           "value": [
             "text",
             "image",
@@ -264,7 +264,7 @@
           ]
         },
         "output_modalities": {
-          "pattern": "<Card title=\"Output Modality\"[^>]*>\\s*Text",
+          "pattern": "> \\*\\*Output Modality\\*\\*\\s*\\n>\\s*\\n>\\s*Text",
           "value": [
             "text"
           ]
@@ -274,7 +274,7 @@
           "value": true
         },
         "reasoning": {
-          "pattern": "thinking cannot be disabled",
+          "pattern": "`thinking\\.type` only supports `enabled`",
           "value": true
         }
       }
@@ -289,14 +289,14 @@
       "fields": {
         "context_tokens": {
           "type": "tokens",
-          "pattern": "<Card title=\"Context Length\"[^>]*>\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)\\s*</Card>"
+          "pattern": "> \\*\\*Context Length\\*\\*\\s*\\n>\\s*\\n>\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)"
         },
         "max_output_tokens": {
           "type": "tokens",
-          "pattern": "<Card title=\"Maximum Output Tokens\"[^>]*>\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)\\s*</Card>"
+          "pattern": "> \\*\\*Maximum Output Tokens\\*\\*\\s*\\n>\\s*\\n>\\s*(?P<value>[\\d,]+(?:\\.\\d+)?\\s*[KM]?)"
         },
         "input_modalities": {
-          "pattern": "<Card title=\"Input Modality\"[^>]*>\\s*Video / Image / Text / File",
+          "pattern": "> \\*\\*Input Modality\\*\\*\\s*\\n>\\s*\\n>\\s*Video / Image / Text / File",
           "value": [
             "text",
             "image",
@@ -305,7 +305,7 @@
           ]
         },
         "output_modalities": {
-          "pattern": "<Card title=\"Output Modality\"[^>]*>\\s*Text",
+          "pattern": "> \\*\\*Output Modality\\*\\*\\s*\\n>\\s*\\n>\\s*Text",
           "value": [
             "text"
           ]
@@ -315,7 +315,7 @@
           "value": true
         },
         "reasoning": {
-          "pattern": "thinking cannot be disabled",
+          "pattern": "`thinking\\.type` only supports `enabled`",
           "value": true
         }
       }
@@ -325,7 +325,7 @@
       "official_model_id": "kimi-k3",
       "scope": "Kimi 官方 API",
       "requires": [
-        "Kimi K3 is Kimi’s most capable flagship model"
+        "Kimi K3 is Kimi’s (?:most capable|previous-generation) flagship model"
       ],
       "fields": {
         "context_tokens": {

@@ -83,6 +83,7 @@ th:last-child,td:last-child { padding-right: 20px; }
 .basis-badge.official { color: #0043ce; background: #edf3ff; }
 .basis-badge.platform { color: #795400; background: #fff4d1; }
 .basis-badge.stale { color: #a2191f; background: #fff1f1; }
+.basis-badge.auto { color: #0e6027; background: #defbe6; }
 .token-number { display: inline-block; font-size: 13px; color: #262626; font-weight: 500; font-variant-numeric: tabular-nums lining-nums; }
 .token-bar { width: 56px; height: 2px; margin: 6px 0 0 auto; background: #e0e0e0; }
 .token-bar span { height: 100%; display: block; background: #78a9ff; }
@@ -128,12 +129,13 @@ dd { margin: 0; overflow-wrap: anywhere; }
 .compare-table th { position: static; height: auto; padding: 9px!important; font-size: 11px; }
 .compare-table td { height: auto; padding: 10px 9px!important; font-size: 11px; overflow-wrap: anywhere; }
 .compare-table th:first-child { width: 23%; }
-#evidence-panel { margin: 22px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; font-size: 12px; }
-#evidence-panel summary { cursor: pointer; color: var(--blue); }
+.evidence-panel { margin: 22px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; font-size: 12px; }
+.evidence-panel summary { cursor: pointer; color: var(--blue); }
 .evidence-item { margin: 20px 0; font-size: 11px; }
 .evidence-item blockquote { margin: 7px 0; padding: 10px 12px; border-left: 2px solid #a6c8ff; background: #f4f4f4; color: #525252; white-space: pre-wrap; overflow-wrap: anywhere; }
 .detail-note { color: #6f6f6f; font-size: 11px; line-height: 1.8; }
-#detail-source { font-size: 12px; display: inline-block; padding: 8px 0; }
+.detail-source { font-size: 12px; display: inline-block; padding: 8px 0; }
+@view-transition { navigation: auto; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .no-js { padding: 20px; }
 @media (min-width: 1280px) { body.detail-open main { margin-right: 540px; } body.detail-open .controls { flex-wrap: wrap; } body.detail-open .search { flex-basis: 100%; } }

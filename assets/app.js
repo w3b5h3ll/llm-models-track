@@ -74,7 +74,12 @@ function openDetails(model) {
   if (model.max_input_tokens_thinking != null && model.basis === 'official') fields.push(['最大输入 · 思考', full(model.max_input_tokens_thinking)], ['最大输入 · 非思考', full(model.max_input_tokens_non_thinking)]);
   if (model.context_extended_tokens != null && model.basis === 'official') fields.push(['可扩展上下文', full(model.context_extended_tokens)]);
   const checked = checks?.models?.[model.id];
-  if (checked) fields.push(['本次官方核对', checked.status === 'verified' ? '已核对' : checked.message || '未核实']);
+  const officialStatus = checked?.status || model.official_status;
+  const officialMessage = checked?.message || model.official_note;
+  if (officialStatus === 'verified') fields.push(['本次官方核对', '已核对']);
+  else if (officialStatus === 'failed') fields.push(['本次官方核对', officialMessage || '未核实']);
+  else if (officialMessage) fields.push(['官方规格', officialMessage]);
+  if (model.track === 'auto') fields.push(['追踪', '该厂商有新型号后自动加入，尚未单独配置官方规则']);
   for (const [key, value] of fields) $('detail-fields').append(element('dt', '', key), element('dd', '', value));
   const url = safeSource(model.source);
   $('detail-source').hidden = !url;
@@ -164,6 +169,7 @@ function render() {
     const official = model.basis === 'official';
     const stale = official && model.official?.status === 'stale';
     providerLine.append(element('span', 'basis-badge ' + (stale ? 'stale' : official ? 'official' : 'platform'), stale ? '官方旧快照' : official ? model.official.label : '平台规格'));
+    if (model.track === 'auto') providerLine.append(element('span', 'basis-badge auto', '自动追踪'));
     text.append(button, providerLine); identity.append(avatar, text); td.append(identity); tr.append(td);
     for (const field of ['context_tokens', 'max_input_tokens', 'max_output_tokens']) {
       const cell = element('td'); const value = element('span', 'token-number', metric(model, field));
@@ -185,7 +191,7 @@ function render() {
 }
 function reset() {
   $('search').value = ''; $('provider').value = ''; $('sort').value = 'name'; active.clear();
-  document.querySelectorAll('[data-filter]').forEach(button => button.setAttribute('aria-pressed', 'false'));
+  document.querySelectorAll('#view-models [data-filter]').forEach(button => button.setAttribute('aria-pressed', 'false'));
   render();
 }
 async function load() {
@@ -234,7 +240,7 @@ $('basis').addEventListener('change', () => {
 });
 $('reset').addEventListener('click', reset); $('empty-reset').addEventListener('click', reset);
 $('retry').addEventListener('click', load);
-document.querySelectorAll('[data-filter]').forEach(button => button.addEventListener('click', () => {
+document.querySelectorAll('#view-models [data-filter]').forEach(button => button.addEventListener('click', () => {
   const key = button.dataset.filter; active.has(key) ? active.delete(key) : active.add(key);
   button.setAttribute('aria-pressed', String(active.has(key))); render();
 }));

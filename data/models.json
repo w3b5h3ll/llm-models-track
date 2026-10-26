@@ -1,7 +1,53 @@
 {
   "source_url": "https://openrouter.ai/api/v1/models",
-  "changed_at": "2026-10-24T06:01:52+00:00",
+  "changed_at": "2026-10-26T20:35:54+00:00",
   "models": [
+    {
+      "provider": "anthropic",
+      "id": "anthropic/claude-haiku-5.5",
+      "name": "Anthropic: Claude Haiku 5.5",
+      "source": "https://openrouter.ai/api/v1/models",
+      "scope": "OpenRouter model catalog; output limit from top_provider",
+      "context_tokens": 1000000,
+      "max_input_tokens": null,
+      "max_output_tokens": 128000,
+      "input_modalities": [
+        "text",
+        "image",
+        "file"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tool_call": true,
+      "reasoning": true,
+      "track": "auto",
+      "platform": {
+        "provider": "anthropic",
+        "id": "anthropic/claude-haiku-5.5",
+        "name": "Anthropic: Claude Haiku 5.5",
+        "source": "https://openrouter.ai/api/v1/models",
+        "scope": "OpenRouter model catalog; output limit from top_provider",
+        "context_tokens": 1000000,
+        "max_input_tokens": null,
+        "max_output_tokens": 128000,
+        "input_modalities": [
+          "text",
+          "image",
+          "file"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tool_call": true,
+        "reasoning": true,
+        "track": "auto"
+      },
+      "basis": "platform",
+      "official": null,
+      "official_status": "not_configured",
+      "official_note": "尚未为此型号核对官方规格"
+    },
     {
       "provider": "anthropic",
       "id": "anthropic/claude-opus-5.5",
@@ -203,7 +249,7 @@
       "id": "deepseek/deepseek-v4.1-flash",
       "name": "DeepSeek: DeepSeek V4.1 Flash",
       "source": "https://api-docs.deepseek.com/quick_start/pricing/",
-      "scope": "DeepSeek 官方 API；deepseek-flash 当前映射 V4.1 Flash",
+      "scope": "DeepSeek 官方 API；deepseek-flash 当前映射 V4.1 Flash，页面版本号可带日期后缀",
       "context_tokens": 1000000,
       "max_input_tokens": null,
       "max_output_tokens": 384000,
@@ -222,7 +268,7 @@
         "scope": "OpenRouter model catalog; output limit from top_provider",
         "context_tokens": 1048576,
         "max_input_tokens": null,
-        "max_output_tokens": 943718,
+        "max_output_tokens": 393216,
         "input_modalities": [
           "text",
           "image"
@@ -276,16 +322,60 @@
         },
         "url": "https://api-docs.deepseek.com/quick_start/pricing/",
         "official_model_id": "deepseek-flash",
-        "scope": "DeepSeek 官方 API；deepseek-flash 当前映射 V4.1 Flash",
+        "scope": "DeepSeek 官方 API；deepseek-flash 当前映射 V4.1 Flash，页面版本号可带日期后缀",
         "label": "官方 API",
-        "evidence_updated_at": "2026-09-29T15:24:03+00:00",
-        "status": "stale"
+        "evidence_updated_at": "2026-10-26T20:35:54+00:00",
+        "status": "verified"
       },
       "max_input_tokens_thinking": null,
       "max_input_tokens_non_thinking": null,
       "context_extended_tokens": null,
-      "official_status": "failed",
-      "official_note": "官方页面身份或结构校验失败"
+      "official_status": "verified",
+      "official_note": ""
+    },
+    {
+      "provider": "deepseek",
+      "id": "deepseek/deepseek-v4.1-flash-1017",
+      "name": "DeepSeek: DeepSeek V4.1 Flash 1017",
+      "source": "https://openrouter.ai/api/v1/models",
+      "scope": "OpenRouter model catalog; output limit from top_provider",
+      "context_tokens": 1048576,
+      "max_input_tokens": null,
+      "max_output_tokens": 393216,
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tool_call": true,
+      "reasoning": true,
+      "track": "auto",
+      "platform": {
+        "provider": "deepseek",
+        "id": "deepseek/deepseek-v4.1-flash-1017",
+        "name": "DeepSeek: DeepSeek V4.1 Flash 1017",
+        "source": "https://openrouter.ai/api/v1/models",
+        "scope": "OpenRouter model catalog; output limit from top_provider",
+        "context_tokens": 1048576,
+        "max_input_tokens": null,
+        "max_output_tokens": 393216,
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tool_call": true,
+        "reasoning": true,
+        "track": "auto"
+      },
+      "basis": "platform",
+      "official": null,
+      "official_status": "not_configured",
+      "official_note": "尚未为此型号核对官方规格"
     },
     {
       "provider": "moonshotai",
@@ -362,13 +452,59 @@
         "scope": "Kimi 官方 API",
         "label": "官方 API",
         "evidence_updated_at": "2026-09-29T15:24:03+00:00",
-        "status": "stale"
+        "status": "verified"
       },
       "max_input_tokens_thinking": null,
       "max_input_tokens_non_thinking": null,
       "context_extended_tokens": null,
-      "official_status": "failed",
-      "official_note": "官方页面身份或结构校验失败"
+      "official_status": "verified",
+      "official_note": ""
+    },
+    {
+      "provider": "moonshotai",
+      "id": "moonshotai/kimi-k3.1-pro",
+      "name": "MoonshotAI: Kimi K3.1 Pro",
+      "source": "https://openrouter.ai/api/v1/models",
+      "scope": "OpenRouter model catalog; output limit from top_provider",
+      "context_tokens": 1048576,
+      "max_input_tokens": null,
+      "max_output_tokens": 943718,
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tool_call": true,
+      "reasoning": true,
+      "track": "auto",
+      "platform": {
+        "provider": "moonshotai",
+        "id": "moonshotai/kimi-k3.1-pro",
+        "name": "MoonshotAI: Kimi K3.1 Pro",
+        "source": "https://openrouter.ai/api/v1/models",
+        "scope": "OpenRouter model catalog; output limit from top_provider",
+        "context_tokens": 1048576,
+        "max_input_tokens": null,
+        "max_output_tokens": 943718,
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tool_call": true,
+        "reasoning": true,
+        "track": "auto"
+      },
+      "basis": "platform",
+      "official": null,
+      "official_status": "not_configured",
+      "official_note": "尚未为此型号核对官方规格"
     },
     {
       "provider": "openai",
@@ -795,6 +931,144 @@
       "official": null,
       "official_status": "not_configured",
       "official_note": "暂未找到与该 Pro 型号对应的独立官方规格页，未套用基础型号参数"
+    },
+    {
+      "provider": "openai",
+      "id": "openai/gpt-6.1-sol",
+      "name": "OpenAI: GPT-6.1 Sol",
+      "source": "https://openrouter.ai/api/v1/models",
+      "scope": "OpenRouter model catalog; output limit from top_provider",
+      "context_tokens": 1050000,
+      "max_input_tokens": null,
+      "max_output_tokens": 128000,
+      "input_modalities": [
+        "file",
+        "image",
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tool_call": true,
+      "reasoning": true,
+      "track": "auto",
+      "platform": {
+        "provider": "openai",
+        "id": "openai/gpt-6.1-sol",
+        "name": "OpenAI: GPT-6.1 Sol",
+        "source": "https://openrouter.ai/api/v1/models",
+        "scope": "OpenRouter model catalog; output limit from top_provider",
+        "context_tokens": 1050000,
+        "max_input_tokens": null,
+        "max_output_tokens": 128000,
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tool_call": true,
+        "reasoning": true,
+        "track": "auto"
+      },
+      "basis": "platform",
+      "official": null,
+      "official_status": "not_configured",
+      "official_note": "尚未为此型号核对官方规格"
+    },
+    {
+      "provider": "openai",
+      "id": "openai/gpt-6.1-sol-pro",
+      "name": "OpenAI: GPT-6.1 Sol Pro",
+      "source": "https://openrouter.ai/api/v1/models",
+      "scope": "OpenRouter model catalog; output limit from top_provider",
+      "context_tokens": 1050000,
+      "max_input_tokens": null,
+      "max_output_tokens": 128000,
+      "input_modalities": [
+        "file",
+        "image",
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tool_call": true,
+      "reasoning": true,
+      "track": "auto",
+      "platform": {
+        "provider": "openai",
+        "id": "openai/gpt-6.1-sol-pro",
+        "name": "OpenAI: GPT-6.1 Sol Pro",
+        "source": "https://openrouter.ai/api/v1/models",
+        "scope": "OpenRouter model catalog; output limit from top_provider",
+        "context_tokens": 1050000,
+        "max_input_tokens": null,
+        "max_output_tokens": 128000,
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tool_call": true,
+        "reasoning": true,
+        "track": "auto"
+      },
+      "basis": "platform",
+      "official": null,
+      "official_status": "not_configured",
+      "official_note": "尚未为此型号核对官方规格"
+    },
+    {
+      "provider": "openai",
+      "id": "openai/gpt-6.1-terra",
+      "name": "OpenAI: GPT-6.1 Terra",
+      "source": "https://openrouter.ai/api/v1/models",
+      "scope": "OpenRouter model catalog; output limit from top_provider",
+      "context_tokens": 1050000,
+      "max_input_tokens": null,
+      "max_output_tokens": 128000,
+      "input_modalities": [
+        "file",
+        "image",
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tool_call": true,
+      "reasoning": true,
+      "track": "auto",
+      "platform": {
+        "provider": "openai",
+        "id": "openai/gpt-6.1-terra",
+        "name": "OpenAI: GPT-6.1 Terra",
+        "source": "https://openrouter.ai/api/v1/models",
+        "scope": "OpenRouter model catalog; output limit from top_provider",
+        "context_tokens": 1050000,
+        "max_input_tokens": null,
+        "max_output_tokens": 128000,
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tool_call": true,
+        "reasoning": true,
+        "track": "auto"
+      },
+      "basis": "platform",
+      "official": null,
+      "official_status": "not_configured",
+      "official_note": "尚未为此型号核对官方规格"
     },
     {
       "provider": "qwen",
@@ -1459,21 +1733,21 @@
         "field_sources": {
           "context_tokens": {
             "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
-            "quote": "<Card title=\"Context Length\" icon=\"arrow-down-arrow-up\" color=\"#ffffff\">\n    1M\n  </Card>",
+            "quote": "> **Context Length**\n>\n> 1M",
             "reported": "1M"
           },
           "max_output_tokens": {
             "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
-            "quote": "<Card title=\"Maximum Output Tokens\" icon=\"maximize\" color=\"#ffffff\">\n    128K\n  </Card>",
+            "quote": "> **Maximum Output Tokens**\n>\n> 128K",
             "reported": "128K"
           },
           "input_modalities": {
             "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
-            "quote": "<Card title=\"Input Modality\" icon=\"arrow-down-right\" color=\"#ffffff\">\n    Video / Image / Text / File"
+            "quote": "> **Input Modality**\n>\n> Video / Image / Text / File"
           },
           "output_modalities": {
             "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
-            "quote": "<Card title=\"Output Modality\" icon=\"arrow-down-left\" color=\"#ffffff\">\n    Text"
+            "quote": "> **Output Modality**\n>\n> Text"
           },
           "tool_call": {
             "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
@@ -1481,21 +1755,21 @@
           },
           "reasoning": {
             "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
-            "quote": "thinking cannot be disabled"
+            "quote": "`thinking.type` only supports `enabled`"
           }
         },
         "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
         "official_model_id": "glm-5.3-flash",
         "scope": "Z.ai 官方 Model API；Coding Plan 可用型号可能不同",
         "label": "官方 API",
-        "evidence_updated_at": "2026-09-29T15:24:03+00:00",
-        "status": "stale"
+        "evidence_updated_at": "2026-10-26T20:35:54+00:00",
+        "status": "verified"
       },
       "max_input_tokens_thinking": null,
       "max_input_tokens_non_thinking": null,
       "context_extended_tokens": null,
-      "official_status": "failed",
-      "official_note": "官方字段解析失败：context_tokens"
+      "official_status": "verified",
+      "official_note": ""
     },
     {
       "provider": "z-ai",
@@ -1561,21 +1835,21 @@
         "field_sources": {
           "context_tokens": {
             "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
-            "quote": "<Card title=\"Context Length\" icon=\"arrow-down-arrow-up\" color=\"#ffffff\">\n    1M\n  </Card>",
+            "quote": "> **Context Length**\n>\n> 1M",
             "reported": "1M"
           },
           "max_output_tokens": {
             "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
-            "quote": "<Card title=\"Maximum Output Tokens\" icon=\"maximize\" color=\"#ffffff\">\n    128K\n  </Card>",
+            "quote": "> **Maximum Output Tokens**\n>\n> 128K",
             "reported": "128K"
           },
           "input_modalities": {
             "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
-            "quote": "<Card title=\"Input Modality\" icon=\"arrow-down-right\" color=\"#ffffff\">\n    Video / Image / Text / File"
+            "quote": "> **Input Modality**\n>\n> Video / Image / Text / File"
           },
           "output_modalities": {
             "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
-            "quote": "<Card title=\"Output Modality\" icon=\"arrow-down-left\" color=\"#ffffff\">\n    Text"
+            "quote": "> **Output Modality**\n>\n> Text"
           },
           "tool_call": {
             "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
@@ -1583,21 +1857,63 @@
           },
           "reasoning": {
             "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
-            "quote": "thinking cannot be disabled"
+            "quote": "`thinking.type` only supports `enabled`"
           }
         },
         "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash.md",
         "official_model_id": "glm-5.3-flashx",
         "scope": "Z.ai 官方 Model API；Coding Plan 可用型号可能不同",
         "label": "官方 API",
-        "evidence_updated_at": "2026-09-29T15:24:03+00:00",
-        "status": "stale"
+        "evidence_updated_at": "2026-10-26T20:35:54+00:00",
+        "status": "verified"
       },
       "max_input_tokens_thinking": null,
       "max_input_tokens_non_thinking": null,
       "context_extended_tokens": null,
-      "official_status": "failed",
-      "official_note": "官方字段解析失败：context_tokens"
+      "official_status": "verified",
+      "official_note": ""
+    },
+    {
+      "provider": "z-ai",
+      "id": "z-ai/glm-5.3-prime",
+      "name": "Z.ai: GLM 5.3 Prime",
+      "source": "https://openrouter.ai/api/v1/models",
+      "scope": "OpenRouter model catalog; output limit from top_provider",
+      "context_tokens": 1000000,
+      "max_input_tokens": null,
+      "max_output_tokens": 131072,
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tool_call": true,
+      "reasoning": true,
+      "track": "auto",
+      "platform": {
+        "provider": "z-ai",
+        "id": "z-ai/glm-5.3-prime",
+        "name": "Z.ai: GLM 5.3 Prime",
+        "source": "https://openrouter.ai/api/v1/models",
+        "scope": "OpenRouter model catalog; output limit from top_provider",
+        "context_tokens": 1000000,
+        "max_input_tokens": null,
+        "max_output_tokens": 131072,
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tool_call": true,
+        "reasoning": true,
+        "track": "auto"
+      },
+      "basis": "platform",
+      "official": null,
+      "official_status": "not_configured",
+      "official_note": "尚未为此型号核对官方规格"
     }
   ]
 }

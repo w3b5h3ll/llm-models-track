@@ -70,12 +70,124 @@ def normalize(source, payload, watched):
                 "reasoning": model.get("reasoning"),
             }
             scope = f"Models.dev provider entry: {provider}"
-        rows.append({
+        row = {
             "provider": provider, "id": model_id,
             "name": model.get("name", model_id),
             "source": URLS[source], "scope": scope, **values,
-        })
+        }
+        if entry.get("track"):
+            row["track"] = entry["track"]
+        rows.append(row)
     return sorted(rows, key=lambda row: (row["provider"], row["id"]))
+
+
+AUTO_EXCLUDES = ("*:*", "*preview*", "*beta*", "*latest*")
+
+
+def catalog_map(source, payload):
+    if source == "openrouter":
+        return {model["id"]: model for model in payload["data"]}
+    found = {}
+    for provider, entry in payload.items():
+        if not isinstance(entry, dict):
+            continue
+        for model_id, model in (entry.get("models") or {}).items():
+            found[model_id] = {**model, "_provider": provider}
+    return found
+
+
+def created_of(source, model):
+    if source == "openrouter":
+        value = model.get("created")
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            return None
+        return value
+    value = model.get("release_date")
+    return value if isinstance(value, str) and value else None
+
+
+def provider_of(source, model_id, model):
+    if source == "openrouter":
+        provider, separator, _ = model_id.partition("/")
+        return provider if separator else None
+    return model.get("_provider")
+
+
+def expand_tracked(source, payload, rules, seed, previous_rows, ignore=None):
+    """Keep the curated watchlist, then append newer catalog models from those providers.
+
+    Models already published stay tracked after a `latest` rule moves on. Models older
+    than the newest curated model for that provider are not backfilled. Channel,
+    preview, beta, and latest aliases are skipped.
+    """
+    if ignore is None:
+        ignore = []
+    if not isinstance(ignore, list) or any(not isinstance(item, str) for item in ignore):
+        raise ValueError("ignore 必须是字符串列表")
+    ignored = set(ignore)
+    catalog = catalog_map(source, payload)
+    providers, excludes = [], {}
+    for rule in rules:
+        provider = rule["provider"]
+        if provider not in excludes:
+            providers.append(provider)
+            excludes[provider] = set(AUTO_EXCLUDES)
+        excludes[provider].update(rule.get("exclude", []))
+
+    def excluded(provider, model_id):
+        return any(fnmatch.fnmatchcase(model_id, pattern) for pattern in excludes[provider])
+
+    result, seen = [], set()
+    for item in seed:
+        if item["id"] in ignored or item["id"] not in catalog:
+            continue
+        result.append({"provider": item["provider"], "id": item["id"]})
+        seen.add(item["id"])
+
+    for row in previous_rows or []:
+        model_id, provider = row.get("id"), row.get("provider")
+        if not model_id or model_id in seen or model_id in ignored:
+            continue
+        if provider not in excludes or model_id not in catalog or excluded(provider, model_id):
+            continue
+        if row.get("track") not in ("auto", "kept"):
+            continue
+        result.append({"provider": provider, "id": model_id, "track": row["track"]})
+        seen.add(model_id)
+
+    cutoffs = {}
+    for item in result:
+        if item.get("track"):
+            continue
+        created = created_of(source, catalog[item["id"]])
+        if created is None:
+            continue
+        current = cutoffs.get(item["provider"])
+        if current is None or created > current:
+            cutoffs[item["provider"]] = created
+
+    for model_id, model in catalog.items():
+        if model_id in seen or model_id in ignored:
+            continue
+        provider = provider_of(source, model_id, model)
+        if provider not in cutoffs or excluded(provider, model_id):
+            continue
+        created = created_of(source, model)
+        if created is None or created <= cutoffs[provider]:
+            continue
+        result.append({"provider": provider, "id": model_id, "track": "auto"})
+        seen.add(model_id)
+
+    # A `latest` rule follows the newest id and would otherwise drop the model it replaced.
+    for row in previous_rows or []:
+        model_id, provider = row.get("id"), row.get("provider")
+        if not model_id or model_id in seen or model_id in ignored:
+            continue
+        if provider not in excludes or model_id not in catalog or excluded(provider, model_id):
+            continue
+        result.append({"provider": provider, "id": model_id, "track": "kept"})
+        seen.add(model_id)
+    return result
 
 
 def resolve(source, payload, rules):
@@ -161,6 +273,8 @@ def render(document):
         label = '官方' if row.get('basis') == 'official' else '聚合平台'
         if (row.get('official') or {}).get('status') == 'stale':
             label += '（旧快照）'
+        if row.get('track') == 'auto':
+            label += '（自动追踪）'
         lines.append("| " + " | ".join(cells) + f" | [{label}]({row['source']}) |")
     lines.extend(["", "优先显示同型号的官方规格，官方未列字段不使用平台值补齐。未核实官方规格的条目标为聚合平台。", "",
                   "K/M 为官方简写时保留原文，数值按十进制展开用于排序。Qwen 权重模型显示原生上下文，扩展能力见 JSON / 网页详情。", "",
@@ -180,10 +294,14 @@ def main():
     if not isinstance(watched, list) or not watched:
         raise ValueError("models 必须是非空列表")
     payload = fetch(URLS[source])
-    rows = normalize(source, payload, resolve(source, payload, watched))
-    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     path = args.output_dir / "models.json"
     old = json.loads(path.read_text()) if path.exists() else {}
+    seed = resolve(source, payload, watched)
+    tracked = expand_tracked(source, payload, watched, seed, old.get("models", []), config.get("ignore", []))
+    if not tracked:
+        raise ValueError("关注名单在忽略规则之后没有可追踪的模型；旧数据未更新。")
+    rows = normalize(source, payload, tracked)
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     checks = None
     if config.get('official_sources'):
         official_config = json.loads((args.config.parent / config['official_sources']).read_text())

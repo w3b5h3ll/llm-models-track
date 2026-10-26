@@ -8,48 +8,51 @@
   <title>Token 薅羊毛 · Model Watch</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23254fdf'/%3E%3Cpath d='M8 25V15l6 10 6-10 6 10 6-10v10' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
   <link rel="preload" href="assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="prefetch" href="index.html">
   <link rel="stylesheet" href="assets/fonts.css">
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="assets/deals.css">
-  <script src="assets/deals.js" defer></script>
+  <link rel="stylesheet" href="assets/style.css?v=20261027c">
+  <link rel="stylesheet" href="assets/deals.css?v=20261027c">
+  <script src="assets/nav.js?v=20261027c" defer></script>
+  <script src="assets/deals.js?v=20261027c" defer></script>
 </head>
 <body>
-  <header class="topbar"><a class="brand" href="./"><span class="mark" aria-hidden="true">m<span>↗</span></span>Model Watch<span class="brand-note">自选模型观察站</span></a><nav class="site-nav"><a href="./">模型参数</a><a href="deals.html" aria-current="page">薅羊毛</a><a href="data/models.json">原始数据 <span aria-hidden="true">↗</span></a></nav></header>
-  <main>
+  <header class="topbar"><a class="brand" href="index.html"><span class="mark" aria-hidden="true">m<span>↗</span></span>Model Watch<span class="brand-note">自选模型观察站</span></a><nav class="site-nav" aria-label="页面"><a href="index.html">模型参数</a><a href="deals.html" aria-current="page">薅羊毛</a><div class="raw-menu"><button id="raw-toggle" class="nav-button" type="button" aria-expanded="false" aria-controls="raw-panel">原始数据</button><div id="raw-panel" class="raw-panel" hidden><a href="data/models.json" target="_blank" rel="noopener">模型 JSON</a><a href="data/deals.json" target="_blank" rel="noopener">活动 JSON</a><a href="data/models.md" target="_blank" rel="noopener">Markdown 表格</a><a href="watchlist.json" target="_blank" rel="noopener">关注规则</a></div></div></nav></header>
+  <main id="view-deals">
     <section class="intro">
       <div><h1>Token 薅羊毛活动</h1><p class="intro-note">人工收录 + LLM 发现候选，每天自动重访官方页面核实；看不到原文的活动会标为待复核。</p></div>
-      <div class="update"><span class="update-label">最近核实</span><time id="checked">正在读取…</time><span class="update-note" id="pending-count">候选：读取中…</span></div>
+      <div class="update"><span class="update-label">最近核实</span><time id="d-checked">正在读取…</time><span class="update-note" id="d-pending-count">候选：读取中…</span></div>
     </section>
     <section class="stats" aria-label="活动概览">
-      <div class="stat"><span>进行中活动</span><strong id="active-count">—</strong><small>quote 复核通过</small></div>
-      <div class="stat"><span>覆盖平台</span><strong id="provider-count">—</strong><small>按活动计入</small></div>
-      <div class="stat"><span>待复核</span><strong id="stale-count">—</strong><small>官方页已找不到原文</small></div>
-      <div class="stat"><span>新发现候选</span><strong id="candidate-count">—</strong><small>LLM 抽取 · 人工确认中</small></div>
+      <div class="stat"><span>进行中活动</span><strong id="d-active-count">—</strong><small>quote 复核通过</small></div>
+      <div class="stat"><span>覆盖平台</span><strong id="d-provider-count">—</strong><small>按活动计入</small></div>
+      <div class="stat"><span>待复核</span><strong id="d-stale-count">—</strong><small>官方页已找不到原文</small></div>
+      <div class="stat"><span>新发现候选</span><strong id="d-candidate-count">—</strong><small>LLM 抽取 · 人工确认中</small></div>
     </section>
-    <section class="catalog" aria-labelledby="catalog-title">
-      <div class="catalog-heading"><div><h2 id="catalog-title">活动清单 <span id="result-count" class="count">—</span></h2><p>点击活动标题查看领取方式与官方原文证据。</p></div><span id="verify-badge" class="source-badge"></span></div>
+    <section class="catalog" aria-labelledby="d-catalog-title">
+      <div class="catalog-heading"><div><h2 id="d-catalog-title">活动清单 <span id="d-result-count" class="count">—</span></h2><p>点击活动标题查看领取方式与官方原文证据。</p></div><span id="d-verify-badge" class="source-badge"></span></div>
       <div class="controls">
-        <label class="search"><svg class="search-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="m12.5 12.5 4 4" stroke="currentColor" stroke-width="1.4"/></svg><input id="search" type="search" placeholder="搜索活动、平台、权益…" aria-label="搜索活动、平台、权益"></label>
-        <label class="select-wrap"><span>平台</span><select id="provider" aria-label="筛选平台"><option value="">全部平台</option></select></label>
-        <label class="select-wrap"><span>排序</span><select id="sort" aria-label="排序方式"><option value="deadline">截止日期：临近优先</option><option value="provider">平台 A → Z</option><option value="verified">最近核实优先</option></select></label>
+        <label class="search"><svg class="search-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="m12.5 12.5 4 4" stroke="currentColor" stroke-width="1.4"/></svg><input id="d-search" type="search" placeholder="搜索活动、平台、权益…" aria-label="搜索活动、平台、权益"></label>
+        <label class="select-wrap"><span>平台</span><select id="d-provider" aria-label="筛选平台"><option value="">全部平台</option></select></label>
+        <label class="select-wrap"><span>类型</span><select id="d-kind" aria-label="筛选类型"><option value="">全部类型</option></select></label>
+        <label class="select-wrap"><span>排序</span><select id="d-sort" aria-label="排序方式"><option value="deadline">截止日期：临近优先</option><option value="provider">平台 A → Z</option><option value="verified">最近核实优先</option></select></label>
       </div>
-      <div class="filterbar"><span class="filter-label">状态筛选</span><div class="chips" role="group" aria-label="状态筛选，可多选"><button type="button" data-filter="active" aria-pressed="true">进行中</button><button type="button" data-filter="stale" aria-pressed="false">待复核</button><button type="button" data-filter="expired" aria-pressed="false">已结束</button></div><button id="reset" class="reset" type="button">重置筛选</button></div>
-      <p id="status" class="status" role="status" aria-live="polite">正在读取活动数据…</p>
-      <div id="error" class="error" hidden><h3>暂时无法读取数据</h3><p id="error-message"></p><button id="retry" type="button">重新加载</button></div>
+      <div class="filterbar"><span class="filter-label">状态筛选</span><div class="chips" role="group" aria-label="状态筛选，可多选"><button type="button" data-filter="active" aria-pressed="true">进行中</button><button type="button" data-filter="stale" aria-pressed="false">待复核</button><button type="button" data-filter="expired" aria-pressed="false">已结束</button></div><button id="d-reset" class="reset" type="button">重置筛选</button></div>
+      <p id="d-status" class="status" role="status" aria-live="polite">正在读取活动数据…</p>
+      <div id="d-error" class="error" hidden><h3>暂时无法读取数据</h3><p id="d-error-message"></p><button id="d-retry" type="button">重新加载</button></div>
       <div class="table-scroll" tabindex="0" role="region" aria-label="活动列表，窄屏可左右滚动">
-        <table><caption class="sr-only">薅羊毛活动清单；点击活动名称查看完整信息与证据</caption><thead><tr><th scope="col">活动 / 平台</th><th scope="col">权益</th><th scope="col">领取条件</th><th scope="col">截止</th><th scope="col">状态</th><th scope="col">最近核实</th></tr></thead><tbody id="deals"></tbody></table>
+        <table><caption class="sr-only">薅羊毛活动清单；点击活动名称查看完整信息与证据</caption><thead><tr><th scope="col">活动 / 平台</th><th scope="col">权益</th><th scope="col">领取条件</th><th scope="col">截止</th><th scope="col">状态</th><th scope="col">最近核实</th></tr></thead><tbody id="d-deals"></tbody></table>
       </div>
-      <div id="empty" class="empty" hidden><span aria-hidden="true">⌕</span><h3>没有匹配的活动</h3><p>试试其他关键词，或减少筛选条件。</p><button id="empty-reset" type="button">清除筛选</button></div>
+      <div id="d-empty" class="empty" hidden><span aria-hidden="true">⌕</span><h3>没有匹配的活动</h3><p>试试其他关键词，或减少筛选条件。</p><button id="d-empty-reset" type="button">清除筛选</button></div>
       <div class="table-footer"><span>“待复核”表示官方页面已找不到原文，不代表活动一定结束</span><span>核实失败的活动保留上次证据并标注</span></div>
     </section>
-    <section id="pending-section" class="catalog pending-catalog" hidden aria-labelledby="pending-title">
-      <div class="catalog-heading"><div><h2 id="pending-title">新发现（待确认）<span id="pending-badge" class="count">0</span></h2><p>LLM 从来源页抽取、且原文复核通过的候选。核对无误后把条目写进 deals.json 即可正式收录。</p></div><span class="source-badge">人工确认后才进入清单</span></div>
-      <ul id="pending-list" class="pending-list"></ul>
+    <section id="d-pending-section" class="catalog pending-catalog" hidden aria-labelledby="d-pending-title">
+      <div class="catalog-heading"><div><h2 id="d-pending-title">新发现（待确认）<span id="d-pending-badge" class="count">0</span></h2><p>LLM 从来源页抽取、且原文复核通过的候选。核对无误后把条目写进 deals.json 即可正式收录。</p></div><span class="source-badge">人工确认后才进入清单</span></div>
+      <ul id="d-pending-list" class="pending-list"></ul>
     </section>
     <aside class="notes"><span class="info-icon" aria-hidden="true">i</span><div><strong>这份清单怎么维护？</strong><p>已收录活动每天重新访问官方页面，核对收录时的原文证据；LLM 每天扫描来源页发现新活动，候选必须带逐字原文并通过复核才会出现在“新发现候选”里，人工确认后才进入正式清单。</p><p>“最近核实”是证据最后核对时间。活动以官方页面为准，领取前请点开来源链接核对；本页不保证实时。</p></div></aside>
-    <footer><span>Model Watch <span class="footer-dot">·</span> 薅羊毛要趁早，更要看清楚</span><div><a href="data/deals.json">原始数据 ↗</a><a href="data/deals_checks.json">检查报告 ↗</a></div></footer>
+    <footer><span>Model Watch <span class="footer-dot">·</span> 薅羊毛要趁早，更要看清楚</span><div><a href="data/deals.json" target="_blank" rel="noopener">原始数据 ↗</a><a href="data/deals_checks.json" target="_blank" rel="noopener">检查报告 ↗</a></div></footer>
   </main>
-  <dialog id="detail" aria-labelledby="detail-title"><div class="dialog-top"><span class="eyebrow">DEAL DETAILS</span><button id="close-detail" class="close" aria-label="关闭详情">×</button></div><h2 id="detail-title"></h2><p id="detail-provider" class="model-id"></p><dl id="detail-fields"></dl><details id="evidence-panel"><summary>查看收录时的官方原文证据</summary><div id="detail-evidence"></div></details><p class="detail-note">证据是收录时从官方页面复制的原文，每次运行都会重新核对其是否仍在页面上。活动细节以来源页面为准。</p><a id="detail-source" target="_blank" rel="noopener noreferrer">打开活动来源 ↗</a></dialog>
+  <dialog id="d-detail" aria-labelledby="d-detail-title"><div class="dialog-top"><span class="eyebrow">DEAL DETAILS</span><button id="d-close-detail" class="close" aria-label="关闭详情">×</button></div><h2 id="d-detail-title"></h2><p id="d-detail-provider" class="model-id"></p><dl id="d-detail-fields"></dl><details id="d-evidence-panel" class="evidence-panel"><summary>查看收录时的官方原文证据</summary><div id="d-detail-evidence"></div></details><p class="detail-note">证据是收录时从官方页面复制的原文，每次运行都会重新核对其是否仍在页面上。活动细节以来源页面为准。</p><a id="d-detail-source" class="detail-source" target="_blank" rel="noopener noreferrer">打开活动来源 ↗</a></dialog>
   <noscript><p class="no-js">请启用 JavaScript，或查看 <a href="data/deals.json">JSON 数据</a>。</p></noscript>
 </body>
 </html>

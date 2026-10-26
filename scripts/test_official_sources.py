@@ -1,5 +1,8 @@
 import copy
+import json
 import unittest
+from pathlib import Path
+
 from official_sources import enrich, parse_rule, page_text
 
 
@@ -77,6 +80,70 @@ class OfficialTests(unittest.TestCase):
 
     def test_html_scripts_do_not_become_evidence(self):
         self.assertNotIn('forged', page_text('<html><script>forged</script><p>Model One</p></html>'))
+
+    def test_deepseek_flash_accepts_dated_model_version(self):
+        config = json.loads((Path(__file__).resolve().parents[1] / 'official_sources.json').read_text())
+        rule = config['models']['deepseek/deepseek-v4.1-flash']
+        text = '\n'.join([
+            '| MODEL VERSION | DeepSeek-V4.1-Flash-1017 | DeepSeek-V4-Pro-0813',
+            '| THINKING MODE | Supports both non-thinking and thinking (default) modes',
+            '| CONTEXT LENGTH | 1M',
+            '| MAX OUTPUT | MAXIMUM: 384K',
+            '| Tool Calls | ✓ | ✓',
+            '| Vision | ✓ | Not supported',
+        ])
+        parsed = parse_rule(rule, text)
+        self.assertEqual(parsed['values']['context_tokens'], 1_000_000)
+        self.assertEqual(parsed['values']['max_output_tokens'], 384_000)
+        self.assertEqual(parsed['values']['input_modalities'], ['text', 'image'])
+        self.assertTrue(parsed['values']['reasoning'])
+
+    def test_kimi_k3_accepts_previous_generation_wording(self):
+        config = json.loads((Path(__file__).resolve().parents[1] / 'official_sources.json').read_text())
+        rule = config['models']['moonshotai/kimi-k3']
+        text = '\n'.join([
+            'Kimi K3 is Kimi’s previous-generation flagship model, with native visual understanding and a 1M-token context window.',
+            'K3 always has thinking mode enabled',
+            '"type": "video_url"',
+        ])
+        parsed = parse_rule(rule, text)
+        self.assertEqual(parsed['values']['context_tokens'], 1_000_000)
+        self.assertEqual(parsed['values']['input_modalities'], ['text', 'image', 'video'])
+        self.assertTrue(parsed['values']['reasoning'])
+
+    def test_glm_flash_reads_markdown_spec_cards(self):
+        config = json.loads((Path(__file__).resolve().parents[1] / 'official_sources.json').read_text())
+        rule = config['models']['z-ai/glm-5.3-flash']
+        text = '\n'.join([
+            '**Model Code**：`glm-5.3-flash`/`glm-5.3-flashx`/`glm-5.3-flashx-legal`',
+            '> **Input Modality**',
+            '>',
+            '> Video / Image / Text / File',
+            '> **Output Modality**',
+            '>',
+            '> Text',
+            '> **Context Length**',
+            '>',
+            '> 1M',
+            '> **Maximum Output Tokens**',
+            '>',
+            '> 128K',
+            'Provides powerful tool-calling capabilities',
+            '`thinking.type` only supports `enabled`',
+        ])
+        parsed = parse_rule(rule, text)
+        self.assertEqual(parsed['values']['context_tokens'], 1_000_000)
+        self.assertEqual(parsed['values']['max_output_tokens'], 128_000)
+        self.assertEqual(parsed['values']['input_modalities'], ['text', 'image', 'video', 'file'])
+        self.assertTrue(parsed['values']['tool_call'])
+        self.assertTrue(parsed['values']['reasoning'])
+
+    def test_deepseek_flash_rejects_a_different_model_line(self):
+        config = json.loads((Path(__file__).resolve().parents[1] / 'official_sources.json').read_text())
+        rule = config['models']['deepseek/deepseek-v4.1-flash']
+        text = '| MODEL VERSION | DeepSeek-V5-Flash | DeepSeek-V4-Pro-0813'
+        with self.assertRaises(ValueError):
+            parse_rule(rule, text)
 
 
 if __name__ == '__main__':

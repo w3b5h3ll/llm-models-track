@@ -26,10 +26,13 @@ class NormalizeCandidateTests(unittest.TestCase):
 
     def test_valid_candidate_keeps_required_fields(self):
         row = m.normalize_candidate(self.raw, self.source, "2026-01-01T00:00:00+00:00")
+        again = m.normalize_candidate(self.raw, self.source, "2026-01-01T00:00:00+00:00")
         self.assertEqual(row["provider"], "lab")
         self.assertEqual(row["kind"], "credits")
         self.assertEqual(row["evidence"]["quote"], self.raw["quote"])
         self.assertEqual(row["discovered_at"], "2026-01-01T00:00:00+00:00")
+        self.assertEqual(row["id"], again["id"])
+        self.assertTrue(row["id"].startswith("pending-src-"))
 
     def test_rejects_short_or_missing_quote(self):
         self.assertIsNone(m.normalize_candidate({**self.raw, "quote": "太短"}, self.source, ""))
@@ -113,6 +116,19 @@ class DiscoverTests(unittest.TestCase):
         candidates, checks = m.discover(self.sources, self.llm, ["赠"], loader=lambda url: "赠送", extractor=extractor)
         self.assertEqual(candidates, [])
         self.assertEqual(checks["src"]["status"], "failed")
+
+    def test_confirmed_quote_is_not_reproposed(self):
+        pages = {"https://example.com": "公告：注册即赠 1000 万 tokens，先到先得"}
+        confirmed = [deal("注册即赠 1000 万 tokens")]
+        confirmed[0]["evidence"]["url"] = "https://example.com"
+        def extractor(page, source):
+            return [{"title": "赠 tokens", "kind": "credits", "reward": "1000 万", "quote": "注册即赠 1000 万 tokens"},
+                    {"title": "另一档优惠", "kind": "discount", "reward": "半价", "quote": "周末调用半价，无需额外领取"}]
+        candidates, checks = m.discover(
+            self.sources, self.llm, ["赠", "半价"], loader=lambda url: pages[url] + "\n周末调用半价，无需额外领取",
+            extractor=extractor, confirmed=confirmed)
+        self.assertEqual([c["title"] for c in candidates], ["另一档优惠"])
+        self.assertEqual(checks["src"]["candidates"], 1)
 
     def test_fetch_failure_marks_source_failed(self):
         def loader(url):

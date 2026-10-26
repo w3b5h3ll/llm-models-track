@@ -1,5 +1,6 @@
 'use strict';
-const $ = (id) => document.getElementById(id);
+(() => {
+const $ = (id) => document.getElementById('d-' + id);
 const PROVIDERS = {
   openrouter: ['OpenRouter', 'O', '#347c67', '#eaf4ef'],
   siliconflow: ['硅基流动', '硅', '#7651c8', '#f2edfc'],
@@ -49,7 +50,9 @@ function currentDeals() {
     if (!active.has(deal.status)) return false;
     const query = $('search').value.trim().toLowerCase();
     if ($('provider').value && deal.provider !== $('provider').value) return false;
-    if (query && !`${deal.title} ${deal.provider} ${deal.reward} ${deal.eligibility}`.toLowerCase().includes(query)) return false;
+    if ($('kind').value && deal.kind !== $('kind').value) return false;
+    const haystack = `${deal.title} ${deal.provider} ${deal.reward} ${deal.eligibility} ${deal.claim_steps} ${KINDS[deal.kind] || ''}`;
+    if (query && !haystack.toLowerCase().includes(query)) return false;
     return true;
   });
 }
@@ -91,6 +94,7 @@ function render() {
     tr.append(deadline);
     const statusCell = element('td');
     statusCell.append(element('span', 'status-badge ' + deal.status, STATUS[deal.status] || deal.status));
+    if (deal.note) statusCell.append(element('div', 'status-note', deal.note));
     tr.append(statusCell);
     tr.append(element('td', 'verified-cell', verifiedText(deal)));
     $('deals').append(tr);
@@ -100,7 +104,7 @@ function openDetails(deal) {
   selectedDealId = deal.id;
   detailTrigger = document.activeElement;
   document.body.classList.add('detail-open');
-  document.querySelectorAll('#deals tr').forEach(row => row.classList.toggle('selected', row.dataset.dealId === deal.id));
+  document.querySelectorAll('#d-deals tr').forEach(row => row.classList.toggle('selected', row.dataset.dealId === deal.id));
   $('detail-title').textContent = deal.title;
   $('detail-provider').textContent = (PROVIDERS[deal.provider] || [deal.provider])[0] + ' · ' + deal.id;
   const fields = [
@@ -167,9 +171,9 @@ function renderPending() {
   }
 }
 function reset() {
-  $('search').value = ''; $('provider').value = ''; $('sort').value = 'deadline';
+  $('search').value = ''; $('provider').value = ''; $('kind').value = ''; $('sort').value = 'deadline';
   active.clear(); active.add('active');
-  document.querySelectorAll('[data-filter]').forEach(button => button.setAttribute('aria-pressed', String(active.has(button.dataset.filter))));
+  document.querySelectorAll('#view-deals [data-filter]').forEach(button => button.setAttribute('aria-pressed', String(active.has(button.dataset.filter))));
   render();
 }
 async function load() {
@@ -184,6 +188,9 @@ async function load() {
     const providers = [...new Set(data.deals.map(d => d.provider))].sort();
     $('provider').replaceChildren(new Option('全部平台', ''));
     providers.forEach(p => $('provider').append(new Option((PROVIDERS[p] || [p])[0], p)));
+    const kinds = [...new Set(data.deals.map(d => d.kind))].sort();
+    $('kind').replaceChildren(new Option('全部类型', ''));
+    kinds.forEach(kind => $('kind').append(new Option(KINDS[kind] || kind, kind)));
     const date = new Date(data.checked_at);
     $('checked').textContent = Number.isNaN(date.getTime()) ? '未知' : datetime.format(date).replace(', ', ' ') + ' 北京时间';
     if (!Number.isNaN(date.getTime())) $('checked').dateTime = date.toISOString();
@@ -202,10 +209,11 @@ async function load() {
 }
 $('search').addEventListener('input', render);
 $('provider').addEventListener('change', render);
+$('kind').addEventListener('change', render);
 $('sort').addEventListener('change', render);
 $('reset').addEventListener('click', reset); $('empty-reset').addEventListener('click', reset);
 $('retry').addEventListener('click', load);
-document.querySelectorAll('[data-filter]').forEach(button => button.addEventListener('click', () => {
+document.querySelectorAll('#view-deals [data-filter]').forEach(button => button.addEventListener('click', () => {
   const key = button.dataset.filter;
   active.has(key) ? active.delete(key) : active.add(key);
   button.setAttribute('aria-pressed', String(active.has(key))); render();
@@ -213,9 +221,10 @@ document.querySelectorAll('[data-filter]').forEach(button => button.addEventList
 function closeDetails() {
   $('detail').close();
   document.body.classList.remove('detail-open');
-  document.querySelectorAll('#deals tr.selected').forEach(row => row.classList.remove('selected'));
+  document.querySelectorAll('#d-deals tr.selected').forEach(row => row.classList.remove('selected'));
   if (detailTrigger?.isConnected) detailTrigger.focus({preventScroll: true});
 }
 $('close-detail').addEventListener('click', closeDetails);
 document.addEventListener('keydown', event => { if (event.key === 'Escape' && $('detail').open) { event.preventDefault(); closeDetails(); } });
 load();
+})();

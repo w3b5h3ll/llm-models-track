@@ -9,6 +9,7 @@
 """
 import argparse
 import concurrent.futures
+import hashlib
 import json
 import os
 import re
@@ -82,6 +83,26 @@ def quote_in_page(quote, page):
     return bool(re.search(pattern, page, re.I))
 
 
+def stable_pending_id(source_id, title):
+    """候选 ID 必须跨进程稳定。内置 hash() 受 PYTHONHASHSEED 影响，不能用来做发布数据的主键。"""
+    digest = hashlib.sha256(f"{source_id}\n{title.strip()}".encode()).hexdigest()[:10]
+    return f"pending-{source_id}-{digest}"
+
+
+def repeats_confirmed(candidate, confirmed):
+    """同一来源页上、原文互相包含的候选视为已收录，不再放进待确认。"""
+    quote = candidate["evidence"]["quote"]
+    url = candidate["evidence"]["url"]
+    for deal in confirmed or []:
+        evidence = deal.get("evidence") or {}
+        known = evidence.get("quote")
+        if evidence.get("url") != url or not known:
+            continue
+        if quote_in_page(known, quote) or quote_in_page(quote, known):
+            return True
+    return False
+
+
 def normalize_candidate(raw, source, now):
     """把 LLM 候选整理成 pending 记录；缺关键字段或 quote 过短时丢弃。"""
     if not isinstance(raw, dict):
@@ -99,7 +120,7 @@ def normalize_candidate(raw, source, now):
     if isinstance(ends, str) and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", ends):
         ends = None
     return {
-        "id": f"pending-{source['id']}-{abs(hash(title)) % 10**8}",
+        "id": stable_pending_id(source["id"], title),
         "provider": source["provider"],
         "title": title,
         "kind": kind,
@@ -152,7 +173,7 @@ def verify_confirmed(deals, pages, previous, now):
     return result, checks
 
 
-def discover(sources, llm_config, keywords, loader=fetch_page, extractor=None):
+def discover(sources, llm_config, keywords, loader=fetch_page, extractor=None, confirmed=None):
     """抓取来源页，运行 LLM 抽取并复核 quote；只发布复核通过的候选。"""
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     pages = {}
@@ -184,12 +205,18 @@ def discover(sources, llm_config, keywords, loader=fetch_page, extractor=None):
             checks[source["id"]] = {"status": "failed", "message": f"LLM 抽取失败：{error}"}
             continue
         accepted = 0
+        seen = {item["id"] for item in candidates}
         for raw in raw_candidates:
             candidate = normalize_candidate(raw, source, now)
-            if candidate and quote_in_page(candidate["evidence"]["quote"], page):
-                candidate["id"] = f"pending-{source['id']}-{abs(hash(candidate['title'])) % 10**8}"
-                candidates.append(candidate)
-                accepted += 1
+            if not candidate or candidate["id"] in seen:
+                continue
+            if not quote_in_page(candidate["evidence"]["quote"], page):
+                continue
+            if repeats_confirmed(candidate, confirmed):
+                continue
+            candidates.append(candidate)
+            seen.add(candidate["id"])
+            accepted += 1
         checks[source["id"]]["candidates"] = accepted
     return candidates, checks
 
@@ -249,7 +276,7 @@ def main():
         else:
             pending, discover_checks = discover(
                 sources_config["sources"], llm_config, sources_config.get("keywords", []),
-                loader=cached_loader)
+                loader=cached_loader, confirmed=confirmed)
 
     verified, checks = verify_confirmed(
         confirmed, {url: cache.get(url) for url in evidence_urls}, previous, now)

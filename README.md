@@ -2,7 +2,7 @@
 
 定时更新你关注的模型参数与 token 薅羊毛活动，并通过 GitHub Pages 展示。**默认优先官方规格**，保留聚合平台参数作对照。纯 Python 标准库采集 + 原生 HTML/CSS/JavaScript，不需要前端构建、服务器或模型推理调用。
 
-站点包含两页：
+站点包含两页，顶部导航直接打开对应页面：
 
 - `index.html` 模型参数表（本 README 主体说明）。
 - `deals.html` [Token 薅羊毛活动](#token-薅羊毛活动清单)：人工收录 + LLM 发现候选，每日自动核实官方页面。
@@ -17,9 +17,9 @@ OpenRouter 负责发现关注名单中的型号与新版本；`official_sources.
 | --- | --- | --- |
 | OpenAI 模型页 | GPT-6 Astra、Sol、Luna | 官方 API 规格，部分功能受端点/推理模式限制 |
 | Anthropic 模型参数表 | Claude Opus 5.5、Sonnet 5.5 | 按官方 API 模型 ID 匹配表格列 |
-| DeepSeek 参数页 | V4.1 Flash | 官方调用 ID 当前为 `deepseek-flash`，每次验证版本映射 |
+| DeepSeek 参数页 | V4.1 Flash | 官方调用 ID 为 `deepseek-flash`；页面版本可带日期后缀（如 V4.1-Flash-1017），仍按该型号核对 |
 | Z.ai 模型页 | GLM 5.3、Flash、FlashX | 官方 Model API |
-| Kimi 快速入门 | Kimi K3 | 没有明确列出的数值不推算 |
+| Kimi 快速入门 | Kimi K3 | 页面现称 previous-generation flagship，不套用 K3.1；没有明确列出的数值不推算 |
 | 阿里云 Model Studio | Qwen3.8 Max 0902、Flash、Omni Flash | 官方托管 API 规格，区域以原文为准 |
 | Qwen 官方 Hugging Face 模型卡 | Qwen3.8 27B、2.4T A95B | 开源权重，原生上下文与可扩展上下文分开保存 |
 
@@ -110,6 +110,7 @@ Pages 尚未启用时，采集可以成功而部署失败，启用后重新运�
 - `latest: 1`：选择最新收录的一项，以目录 `created` 日期为准，不猜测模型版本号大小。
 - `latest_family`：通过一个正则捕获组提取系列。当前 Grok 规则按系列首次收录时间仅保留最新数字系列及其变体，排除 Build 和旧系列。旧系列新增变体不会仅因时间较新而挤掉新系列。
 - 系列发现仍以 OpenRouter 收录为边界，不保证与厂商发布同步。新型号没有官方规则时先明确展示平台规格，需核实官方页面后添加映射。
+- **自动追踪**：每次检查会看已关注厂商的目录。收录时间晚于该厂商当前清单里最新一只、且不是渠道别名（`:free` 等）、preview、beta、`latest` 的新型号会自动加入，页面标为“自动追踪”。更早的旧型号不会回补。`latest` 规则改指向新型号后，原来那只仍保留。若要停止追踪，把 ID 写进 `watchlist.json` 的 `ignore` 数组。
 
 也保留 Models.dev 目录适配器（`source: "models.dev"`），但模型 ID 和 provider 格式不同，切换时需要同步调整关注名单与官方映射。它的线上访问本次未验证，不会自动混用两个目录源。
 
