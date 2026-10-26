@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-26T20:35:57+00:00",
+  "checked_at": "2026-10-26T20:36:25+00:00",
   "deals": [
     {
       "id": "openrouter-free-models",
@@ -54,9 +54,9 @@
         "url": "https://api-docs.deepseek.com/quick_start/pricing",
         "quote": "(2) Off-peak rates are half of the peak rates. Peak hours are 01:00 - 04:00 and 06:00 - 10:00 UTC, Monday through Friday, excluding Chinese public holidays. All other hours are off-peak, including weekends and Chinese public holidays in full."
       },
-      "status": "active",
-      "note": "",
-      "verified_at": "2026-10-26T20:35:57+00:00"
+      "status": "stale",
+      "note": "官方页面已找不到活动原文，请人工复核或移除",
+      "verified_at": "2026-10-26T20:36:25+00:00"
     },
     {
       "id": "kimi-file-api-free",
