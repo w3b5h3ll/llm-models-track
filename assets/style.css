@@ -21,8 +21,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[t
 .topbar { height: 56px; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; background: #161616; color: #fff; }
 .brand { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 17px; color: white; letter-spacing: -.3px; }
 .brand:hover { text-decoration: none; }
-.mark { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: #0f62fe; font-size: 22px; line-height: 1; letter-spacing: -3px; padding-right: 4px; }
-.mark span { font-size: 17px; align-self: flex-start; }
+.mark { display: block; width: 28px; height: 28px; flex-shrink: 0; }
 .brand-note { color: #c6c6c6; font-size: 12px; font-weight: 400; border-left: 1px solid #525252; padding-left: 16px; margin-left: 4px; letter-spacing: 0; }
 .data-link { color: #e0e0e0; font-size: 12px; padding: 10px 0 10px 16px; }
 .data-link span { margin-left: 12px; }
