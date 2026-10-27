@@ -1,6 +1,6 @@
 {
   "source_url": "https://openrouter.ai/api/v1/models",
-  "changed_at": "2026-10-26T20:35:54+00:00",
+  "changed_at": "2026-10-27T06:27:06+00:00",
   "models": [
     {
       "provider": "anthropic",
@@ -268,7 +268,7 @@
         "scope": "OpenRouter model catalog; output limit from top_provider",
         "context_tokens": 1048576,
         "max_input_tokens": null,
-        "max_output_tokens": 393216,
+        "max_output_tokens": 131072,
         "input_modalities": [
           "text",
           "image"
@@ -1048,6 +1048,52 @@
         "provider": "openai",
         "id": "openai/gpt-6.1-terra",
         "name": "OpenAI: GPT-6.1 Terra",
+        "source": "https://openrouter.ai/api/v1/models",
+        "scope": "OpenRouter model catalog; output limit from top_provider",
+        "context_tokens": 1050000,
+        "max_input_tokens": null,
+        "max_output_tokens": 128000,
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tool_call": true,
+        "reasoning": true,
+        "track": "auto"
+      },
+      "basis": "platform",
+      "official": null,
+      "official_status": "not_configured",
+      "official_note": "尚未为此型号核对官方规格"
+    },
+    {
+      "provider": "openai",
+      "id": "openai/gpt-6.1-terra-pro",
+      "name": "OpenAI: GPT-6.1 Terra Pro",
+      "source": "https://openrouter.ai/api/v1/models",
+      "scope": "OpenRouter model catalog; output limit from top_provider",
+      "context_tokens": 1050000,
+      "max_input_tokens": null,
+      "max_output_tokens": 128000,
+      "input_modalities": [
+        "file",
+        "image",
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tool_call": true,
+      "reasoning": true,
+      "track": "auto",
+      "platform": {
+        "provider": "openai",
+        "id": "openai/gpt-6.1-terra-pro",
+        "name": "OpenAI: GPT-6.1 Terra Pro",
         "source": "https://openrouter.ai/api/v1/models",
         "scope": "OpenRouter model catalog; output limit from top_provider",
         "context_tokens": 1050000,

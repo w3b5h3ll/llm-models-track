@@ -1,6 +1,6 @@
 # 关注模型参数
 
-数据最后变更采集时间（UTC）：2026-10-26T20:35:54+00:00
+数据最后变更采集时间（UTC）：2026-10-27T06:27:06+00:00
 
 每次检查的时间见 Actions 日志；下表仅在数据变化时更新。未知表示来源未提供。
 
@@ -22,6 +22,7 @@
 | openai/gpt-6.1-sol | 1050000 | 未知 | 128000 | file, image, text | text | 是 | 是 | [聚合平台（自动追踪）](https://openrouter.ai/api/v1/models) |
 | openai/gpt-6.1-sol-pro | 1050000 | 未知 | 128000 | file, image, text | text | 是 | 是 | [聚合平台（自动追踪）](https://openrouter.ai/api/v1/models) |
 | openai/gpt-6.1-terra | 1050000 | 未知 | 128000 | file, image, text | text | 是 | 是 | [聚合平台（自动追踪）](https://openrouter.ai/api/v1/models) |
+| openai/gpt-6.1-terra-pro | 1050000 | 未知 | 128000 | file, image, text | text | 是 | 是 | [聚合平台（自动追踪）](https://openrouter.ai/api/v1/models) |
 | qwen/qwen3.8-2.4t-a95b | 262144 | 未知 | 未知 | 未知 | 未知 | 未知 | 是 | [官方](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/main/README.md) |
 | qwen/qwen3.8-27b | 262144 | 未知 | 未知 | text, image, video | 未知 | 未知 | 是 | [官方](https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/README.md) |
 | qwen/qwen3.8-flash | 1000000 | 未知 | 未知 | 未知 | 未知 | 是 | 是 | [官方](https://www.alibabacloud.com/help/en/model-studio/text-generation-model) |
