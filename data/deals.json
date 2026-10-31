@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-30T07:19:27+00:00",
+  "checked_at": "2026-10-31T07:07:39+00:00",
   "deals": [
     {
       "id": "openrouter-free-models",
@@ -54,9 +54,9 @@
         "url": "https://api-docs.deepseek.com/quick_start/pricing",
         "quote": "(2) Off-peak rates are half of the peak rates. Peak hours are 01:00 - 04:00 and 06:00 - 10:00 UTC, Monday through Friday, excluding Chinese public holidays. All other hours are off-peak, including weekends and Chinese public holidays in full."
       },
-      "status": "stale",
-      "note": "官方页面已找不到活动原文，请人工复核或移除",
-      "verified_at": "2026-10-30T07:19:27+00:00"
+      "status": "active",
+      "note": "",
+      "verified_at": "2026-10-31T07:07:39+00:00"
     },
     {
       "id": "kimi-file-api-free",
@@ -73,9 +73,9 @@
         "url": "https://platform.moonshot.cn/pricing",
         "quote": "文件相关接口（文件内容抽取/文件存储）限时免费，即您只上传并抽取文档时，文件接口本身不产生费用。"
       },
-      "status": "active",
-      "note": "",
-      "verified_at": "2026-10-18T19:19:07+00:00"
+      "status": "stale",
+      "note": "本次无法访问来源页面，保留上次核实的证据",
+      "verified_at": "2026-10-31T07:07:39+00:00"
     },
     {
       "id": "aliyun-bailian-free-quota",
