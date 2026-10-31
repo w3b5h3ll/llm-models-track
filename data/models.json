@@ -1,6 +1,6 @@
 {
   "source_url": "https://openrouter.ai/api/v1/models",
-  "changed_at": "2026-10-30T07:19:21+00:00",
+  "changed_at": "2026-10-31T07:07:33+00:00",
   "models": [
     {
       "provider": "anthropic",
@@ -1743,7 +1743,7 @@
         "scope": "OpenRouter model catalog; output limit from top_provider",
         "context_tokens": 1048576,
         "max_input_tokens": null,
-        "max_output_tokens": 943718,
+        "max_output_tokens": 131072,
         "input_modalities": [
           "text",
           "image",
@@ -1809,13 +1809,13 @@
         "scope": "Z.ai 官方 Model API；Coding Plan 可用型号可能不同",
         "label": "官方 API",
         "evidence_updated_at": "2026-10-26T20:35:54+00:00",
-        "status": "verified"
+        "status": "stale"
       },
       "max_input_tokens_thinking": null,
       "max_input_tokens_non_thinking": null,
       "context_extended_tokens": null,
-      "official_status": "verified",
-      "official_note": ""
+      "official_status": "failed",
+      "official_note": "官方字段解析失败：context_tokens"
     },
     {
       "provider": "z-ai",
@@ -1911,13 +1911,13 @@
         "scope": "Z.ai 官方 Model API；Coding Plan 可用型号可能不同",
         "label": "官方 API",
         "evidence_updated_at": "2026-10-26T20:35:54+00:00",
-        "status": "verified"
+        "status": "stale"
       },
       "max_input_tokens_thinking": null,
       "max_input_tokens_non_thinking": null,
       "context_extended_tokens": null,
-      "official_status": "verified",
-      "official_note": ""
+      "official_status": "failed",
+      "official_note": "官方字段解析失败：context_tokens"
     },
     {
       "provider": "z-ai",
