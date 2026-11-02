@@ -1,6 +1,6 @@
 {
   "source_url": "https://openrouter.ai/api/v1/models",
-  "changed_at": "2026-11-01T07:41:01+00:00",
+  "changed_at": "2026-11-02T07:48:16+00:00",
   "models": [
     {
       "provider": "anthropic",
@@ -1213,7 +1213,7 @@
         "name": "Qwen: Qwen3.8 27B",
         "source": "https://openrouter.ai/api/v1/models",
         "scope": "OpenRouter model catalog; output limit from top_provider",
-        "context_tokens": 1000000,
+        "context_tokens": 1024000,
         "max_input_tokens": null,
         "max_output_tokens": 235929,
         "input_modalities": [
