@@ -1,6 +1,6 @@
 {
   "source_url": "https://openrouter.ai/api/v1/models",
-  "changed_at": "2026-11-02T07:48:16+00:00",
+  "changed_at": "2026-11-03T08:02:40+00:00",
   "models": [
     {
       "provider": "anthropic",
@@ -1328,23 +1328,23 @@
         "field_sources": {
           "context_tokens": {
             "url": "https://www.alibabacloud.com/help/en/model-studio/text-generation-model",
-            "quote": "qwen3.8-flash |\n1M |",
+            "quote": "qwen3.8-flash | 1M |",
             "reported": "1M"
           },
           "reasoning": {
             "url": "https://www.alibabacloud.com/help/en/model-studio/text-generation-model",
-            "quote": "qwen3.8-flash |\n1M |\nSupported |"
+            "quote": "qwen3.8-flash | 1M | Supported |"
           },
           "tool_call": {
             "url": "https://www.alibabacloud.com/help/en/model-studio/text-generation-model",
-            "quote": "qwen3.8-flash |\n1M |\nSupported |\nSupported |"
+            "quote": "qwen3.8-flash | 1M | Supported | Supported |"
           }
         },
         "url": "https://www.alibabacloud.com/help/en/model-studio/text-generation-model",
         "official_model_id": "qwen3.8-flash",
         "scope": "阿里云 Model Studio 官方 API；区域以官方页为准",
         "label": "官方 API",
-        "evidence_updated_at": "2026-09-29T15:24:03+00:00",
+        "evidence_updated_at": "2026-11-03T08:02:40+00:00",
         "status": "verified"
       },
       "max_input_tokens_thinking": null,
@@ -1420,13 +1420,13 @@
         "scope": "阿里云 Model Studio 官方 API；区域以官方页为准",
         "label": "官方 API",
         "evidence_updated_at": "2026-09-29T15:24:03+00:00",
-        "status": "verified"
+        "status": "stale"
       },
       "max_input_tokens_thinking": null,
       "max_input_tokens_non_thinking": null,
       "context_extended_tokens": null,
-      "official_status": "verified",
-      "official_note": ""
+      "official_status": "failed",
+      "official_note": "官方页面身份或结构校验失败"
     },
     {
       "provider": "qwen",
@@ -1918,6 +1918,52 @@
       "context_extended_tokens": null,
       "official_status": "failed",
       "official_note": "官方字段解析失败：context_tokens"
+    },
+    {
+      "provider": "z-ai",
+      "id": "z-ai/glm-5.3-flashx-legal",
+      "name": "Z.ai: GLM 5.3 FlashX Legal",
+      "source": "https://openrouter.ai/api/v1/models",
+      "scope": "OpenRouter model catalog; output limit from top_provider",
+      "context_tokens": 1048576,
+      "max_input_tokens": null,
+      "max_output_tokens": 131072,
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tool_call": true,
+      "reasoning": true,
+      "track": "auto",
+      "platform": {
+        "provider": "z-ai",
+        "id": "z-ai/glm-5.3-flashx-legal",
+        "name": "Z.ai: GLM 5.3 FlashX Legal",
+        "source": "https://openrouter.ai/api/v1/models",
+        "scope": "OpenRouter model catalog; output limit from top_provider",
+        "context_tokens": 1048576,
+        "max_input_tokens": null,
+        "max_output_tokens": 131072,
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tool_call": true,
+        "reasoning": true,
+        "track": "auto"
+      },
+      "basis": "platform",
+      "official": null,
+      "official_status": "not_configured",
+      "official_note": "尚未为此型号核对官方规格"
     },
     {
       "provider": "z-ai",
