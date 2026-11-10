@@ -1,7 +1,53 @@
 {
   "source_url": "https://openrouter.ai/api/v1/models",
-  "changed_at": "2026-11-08T07:33:07+00:00",
+  "changed_at": "2026-11-10T08:30:12+00:00",
   "models": [
+    {
+      "provider": "anthropic",
+      "id": "anthropic/claude-fable-5.2",
+      "name": "Anthropic: Claude Fable 5.2",
+      "source": "https://openrouter.ai/api/v1/models",
+      "scope": "OpenRouter model catalog; output limit from top_provider",
+      "context_tokens": 1000000,
+      "max_input_tokens": null,
+      "max_output_tokens": 128000,
+      "input_modalities": [
+        "text",
+        "image",
+        "file"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tool_call": true,
+      "reasoning": true,
+      "track": "auto",
+      "platform": {
+        "provider": "anthropic",
+        "id": "anthropic/claude-fable-5.2",
+        "name": "Anthropic: Claude Fable 5.2",
+        "source": "https://openrouter.ai/api/v1/models",
+        "scope": "OpenRouter model catalog; output limit from top_provider",
+        "context_tokens": 1000000,
+        "max_input_tokens": null,
+        "max_output_tokens": 128000,
+        "input_modalities": [
+          "text",
+          "image",
+          "file"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tool_call": true,
+        "reasoning": true,
+        "track": "auto"
+      },
+      "basis": "platform",
+      "official": null,
+      "official_status": "not_configured",
+      "official_note": "尚未为此型号核对官方规格"
+    },
     {
       "provider": "anthropic",
       "id": "anthropic/claude-haiku-5.5",
@@ -1213,7 +1259,7 @@
         "name": "Qwen: Qwen3.8 27B",
         "source": "https://openrouter.ai/api/v1/models",
         "scope": "OpenRouter model catalog; output limit from top_provider",
-        "context_tokens": 1024000,
+        "context_tokens": 1048575,
         "max_input_tokens": null,
         "max_output_tokens": 235929,
         "input_modalities": [
@@ -1743,7 +1789,7 @@
         "scope": "OpenRouter model catalog; output limit from top_provider",
         "context_tokens": 1048576,
         "max_input_tokens": null,
-        "max_output_tokens": 131072,
+        "max_output_tokens": 943717,
         "input_modalities": [
           "text",
           "image",

@@ -1,11 +1,12 @@
 # 关注模型参数
 
-数据最后变更采集时间（UTC）：2026-11-08T07:33:07+00:00
+数据最后变更采集时间（UTC）：2026-11-10T08:30:12+00:00
 
 每次检查的时间见 Actions 日志；下表仅在数据变化时更新。未知表示来源未提供。
 
 | 模型 ID | 上下文 tokens | 最大输入 | 最大输出 | 输入模态 | 输出模态 | 工具调用 | 推理 | 规格来源 |
 | --- | ---: | --- | ---: | --- | --- | --- | --- | --- |
+| anthropic/claude-fable-5.2 | 1000000 | 未知 | 128000 | text, image, file | text | 是 | 是 | [聚合平台（自动追踪）](https://openrouter.ai/api/v1/models) |
 | anthropic/claude-haiku-5.5 | 1000000 | 未知 | 128000 | text, image, file | text | 是 | 是 | [聚合平台（自动追踪）](https://openrouter.ai/api/v1/models) |
 | anthropic/claude-opus-5.5 | 1000000 | 未知 | 128000 | text, image | text | 是 | 是 | [官方](https://docs.anthropic.com/en/docs/about-claude/models/overview) |
 | anthropic/claude-sonnet-5.5 | 1000000 | 未知 | 128000 | text, image | text | 是 | 是 | [官方](https://docs.anthropic.com/en/docs/about-claude/models/overview) |
