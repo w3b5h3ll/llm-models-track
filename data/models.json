@@ -1,6 +1,6 @@
 {
   "source_url": "https://openrouter.ai/api/v1/models",
-  "changed_at": "2026-11-12T08:27:26+00:00",
+  "changed_at": "2026-11-14T07:41:15+00:00",
   "models": [
     {
       "provider": "anthropic",
@@ -314,7 +314,7 @@
         "scope": "OpenRouter model catalog; output limit from top_provider",
         "context_tokens": 1048576,
         "max_input_tokens": null,
-        "max_output_tokens": 943718,
+        "max_output_tokens": 393216,
         "input_modalities": [
           "text",
           "image"
@@ -387,7 +387,7 @@
       "scope": "OpenRouter model catalog; output limit from top_provider",
       "context_tokens": 1048576,
       "max_input_tokens": null,
-      "max_output_tokens": 393216,
+      "max_output_tokens": 943718,
       "input_modalities": [
         "text",
         "image"
@@ -406,7 +406,7 @@
         "scope": "OpenRouter model catalog; output limit from top_provider",
         "context_tokens": 1048576,
         "max_input_tokens": null,
-        "max_output_tokens": 393216,
+        "max_output_tokens": 943718,
         "input_modalities": [
           "text",
           "image"
@@ -1259,7 +1259,7 @@
         "name": "Qwen: Qwen3.8 27B",
         "source": "https://openrouter.ai/api/v1/models",
         "scope": "OpenRouter model catalog; output limit from top_provider",
-        "context_tokens": 1048575,
+        "context_tokens": 1024000,
         "max_input_tokens": null,
         "max_output_tokens": 235929,
         "input_modalities": [
