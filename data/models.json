@@ -1,6 +1,6 @@
 {
   "source_url": "https://openrouter.ai/api/v1/models",
-  "changed_at": "2026-11-15T07:57:19+00:00",
+  "changed_at": "2026-11-16T08:05:39+00:00",
   "models": [
     {
       "provider": "anthropic",
@@ -1630,6 +1630,52 @@
       "context_extended_tokens": null,
       "official_status": "verified",
       "official_note": ""
+    },
+    {
+      "provider": "qwen",
+      "id": "qwen/qwen4-max",
+      "name": "Qwen: Qwen4 Max",
+      "source": "https://openrouter.ai/api/v1/models",
+      "scope": "OpenRouter model catalog; output limit from top_provider",
+      "context_tokens": 1000000,
+      "max_input_tokens": null,
+      "max_output_tokens": 393216,
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tool_call": true,
+      "reasoning": true,
+      "track": "auto",
+      "platform": {
+        "provider": "qwen",
+        "id": "qwen/qwen4-max",
+        "name": "Qwen: Qwen4 Max",
+        "source": "https://openrouter.ai/api/v1/models",
+        "scope": "OpenRouter model catalog; output limit from top_provider",
+        "context_tokens": 1000000,
+        "max_input_tokens": null,
+        "max_output_tokens": 393216,
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tool_call": true,
+        "reasoning": true,
+        "track": "auto"
+      },
+      "basis": "platform",
+      "official": null,
+      "official_status": "not_configured",
+      "official_note": "尚未为此型号核对官方规格"
     },
     {
       "provider": "x-ai",

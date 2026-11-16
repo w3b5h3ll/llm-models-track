@@ -1,6 +1,6 @@
 # 关注模型参数
 
-数据最后变更采集时间（UTC）：2026-11-15T07:57:19+00:00
+数据最后变更采集时间（UTC）：2026-11-16T08:05:39+00:00
 
 每次检查的时间见 Actions 日志；下表仅在数据变化时更新。未知表示来源未提供。
 
@@ -30,6 +30,7 @@
 | qwen/qwen3.8-max-0902 | 1000000 | 未知 | 未知 | 未知 | 未知 | 是 | 是 | [官方（旧快照）](https://www.alibabacloud.com/help/en/model-studio/text-generation-model) |
 | qwen/qwen3.8-max-prime | 1000000 | 未知 | 131072 | text, image, video | text | 是 | 是 | [聚合平台](https://openrouter.ai/api/v1/models) |
 | qwen/qwen3.8-omni-flash | 1000000 | 思考 983616；非思考 991808 | 131072 | text, image, audio, video | text | 是 | 是 | [官方](https://www.alibabacloud.com/help/en/model-studio/qwen3-8-omni-flash) |
+| qwen/qwen4-max | 1000000 | 未知 | 393216 | text, image, video | text | 是 | 是 | [聚合平台（自动追踪）](https://openrouter.ai/api/v1/models) |
 | x-ai/grok-4.7 | 500000 | 未知 | 450000 | text, image, file | text | 是 | 是 | [聚合平台](https://openrouter.ai/api/v1/models) |
 | z-ai/glm-5.3 | 1000000 | 未知 | 128000 | text | 未知 | 是 | 是 | [官方](https://docs.z.ai/guides/llm/glm-5.3) |
 | z-ai/glm-5.3-flash | 1000000 | 未知 | 128000 | text, image, video, file | text | 是 | 是 | [官方（旧快照）](https://docs.z.ai/guides/vlm/glm-5.3-flash.md) |
