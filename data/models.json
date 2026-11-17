@@ -1,6 +1,6 @@
 {
   "source_url": "https://openrouter.ai/api/v1/models",
-  "changed_at": "2026-11-16T08:05:39+00:00",
+  "changed_at": "2026-11-17T09:20:44+00:00",
   "models": [
     {
       "provider": "anthropic",
@@ -387,7 +387,7 @@
       "scope": "OpenRouter model catalog; output limit from top_provider",
       "context_tokens": 1048576,
       "max_input_tokens": null,
-      "max_output_tokens": 393216,
+      "max_output_tokens": 943718,
       "input_modalities": [
         "text",
         "image"
@@ -406,7 +406,7 @@
         "scope": "OpenRouter model catalog; output limit from top_provider",
         "context_tokens": 1048576,
         "max_input_tokens": null,
-        "max_output_tokens": 393216,
+        "max_output_tokens": 943718,
         "input_modalities": [
           "text",
           "image"
@@ -1639,7 +1639,7 @@
       "scope": "OpenRouter model catalog; output limit from top_provider",
       "context_tokens": 1000000,
       "max_input_tokens": null,
-      "max_output_tokens": 393216,
+      "max_output_tokens": 131072,
       "input_modalities": [
         "text",
         "image",
@@ -1659,7 +1659,7 @@
         "scope": "OpenRouter model catalog; output limit from top_provider",
         "context_tokens": 1000000,
         "max_input_tokens": null,
-        "max_output_tokens": 393216,
+        "max_output_tokens": 131072,
         "input_modalities": [
           "text",
           "image",
