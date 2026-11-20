@@ -1,6 +1,6 @@
 {
   "source_url": "https://openrouter.ai/api/v1/models",
-  "changed_at": "2026-11-19T08:55:25+00:00",
+  "changed_at": "2026-11-20T08:42:28+00:00",
   "models": [
     {
       "provider": "anthropic",
@@ -1864,7 +1864,7 @@
     {
       "provider": "x-ai",
       "id": "x-ai/grok-4.7",
-      "name": "SpaceXAI: Grok 4.7",
+      "name": "SpaceXSI: Grok 4.7",
       "source": "https://openrouter.ai/api/v1/models",
       "scope": "OpenRouter model catalog; output limit from top_provider",
       "context_tokens": 500000,
@@ -1883,7 +1883,7 @@
       "platform": {
         "provider": "x-ai",
         "id": "x-ai/grok-4.7",
-        "name": "SpaceXAI: Grok 4.7",
+        "name": "SpaceXSI: Grok 4.7",
         "source": "https://openrouter.ai/api/v1/models",
         "scope": "OpenRouter model catalog; output limit from top_provider",
         "context_tokens": 500000,
@@ -2019,7 +2019,7 @@
         "scope": "OpenRouter model catalog; output limit from top_provider",
         "context_tokens": 1048576,
         "max_input_tokens": null,
-        "max_output_tokens": 943717,
+        "max_output_tokens": 131072,
         "input_modalities": [
           "text",
           "image",
