@@ -1,6 +1,6 @@
 {
   "source_url": "https://openrouter.ai/api/v1/models",
-  "changed_at": "2026-11-26T09:41:10+00:00",
+  "changed_at": "2026-11-27T09:46:46+00:00",
   "models": [
     {
       "provider": "anthropic",
@@ -1365,7 +1365,7 @@
         "name": "Qwen: Qwen3.8 2.4T A95B",
         "source": "https://openrouter.ai/api/v1/models",
         "scope": "OpenRouter model catalog; output limit from top_provider",
-        "context_tokens": 1048576,
+        "context_tokens": 1000000,
         "max_input_tokens": null,
         "max_output_tokens": 65536,
         "input_modalities": [
